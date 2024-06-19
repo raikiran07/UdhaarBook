@@ -35,11 +35,8 @@ const Login = () => {
              
                })
 
-            toast.success("Login successful");
             navigate("/dashboard")
-            
-            
-            
+        
             console.log("login successfull...")
         } catch (error) {
             toast.error(error.message);
@@ -69,6 +66,7 @@ const Login = () => {
                 <input type="text" className='block border-none outline-none px-2 py-2 rounded-sm text-sm   text-gray-600 min-w-[250px] bg-gray-300' id="email"
                 value={email}
                 onChange={(e)=>setemail(e.target.value)}
+                required
 
                 />
             </div>
@@ -77,6 +75,7 @@ const Login = () => {
                 <input type="password" className='block border-none outline-none px-2 py-2 rounded-sm text-sm   text-gray-600 min-w-[250px] bg-gray-300' id="password"
                 value={password}
                 onChange={(e)=>setPassword(e.target.value)}
+                required
                 />
             </div>
             <div className='mt-8 mb-4'>
@@ -89,18 +88,7 @@ const Login = () => {
             </div>
         </form>
 
-        <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        />
+       
        
        
     </div>

@@ -56,6 +56,10 @@ const handleEdit = async(id) => {
     setIsAddBox(true)
 }
 
+useEffect(()=>{
+
+},[userList])
+
 
 
 

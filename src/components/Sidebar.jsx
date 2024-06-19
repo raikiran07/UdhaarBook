@@ -4,6 +4,8 @@ import { useContext } from 'react';
 import { userListContext } from '../context/ContextProvider';
 import {auth} from '../firebaseConnection/connection'
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -16,6 +18,7 @@ const Sidebar = () => {
     try {
       const isLogout = confirm("Do you want to logout?");
       if(isLogout){
+        
         await auth.signOut();
         localStorage.clear()
         setIsSignIn(false)

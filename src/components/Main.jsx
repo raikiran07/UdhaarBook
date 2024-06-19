@@ -85,7 +85,9 @@ const Main = () => {
     useEffect(()=>{
 
         fetchData()
+        return ()=>{
 
+        };
 
     },[])
 
@@ -164,7 +166,7 @@ const Main = () => {
         {
             isAddBox && (
                 <div className='z-100 fixed top-[50%] left-[50%] translate-x-[-30%]'>
-                    <AddUdaarDept />
+                    <AddUdaarDept fetchData={fetchData} />
                 </div>
                 
             )

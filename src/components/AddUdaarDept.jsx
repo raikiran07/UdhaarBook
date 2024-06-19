@@ -12,7 +12,7 @@ import { update } from 'firebase/database'
 
 // input form for adding udhaar and dept
 
-const AddUdaarDept = () => {
+const AddUdaarDept = ({fetchData}) => {
 
     const {userList,setUserList,setIsAddBox,isAddBox,userCollectionRef,editId,setEditId} = useContext(userListContext)
 
@@ -32,12 +32,27 @@ const AddUdaarDept = () => {
    const editOn =  () => {
     if(editId){
         const [editData] = userList.filter(user=>user.id==editId);
-        setUserDetails(editData)
+        const takenDate = convertDate(editData.taken_date)
+        console.log(takenDate)
+        console.log(editData)
+        setUserDetails({
+            ...editData,
+            taken_date:takenDate
+        })
     }
        
        
   
    }
+
+   function convertDate(dateString) {
+    const dateObject = new Date(dateString);
+    const year = dateObject.getFullYear();
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0'); // Add leading 0 for single-digit months
+    const day = String(dateObject.getDate()).padStart(2, '0'); // Add leading 0 for single-digit days
+  
+    return `${year}-${month}-${day}`;
+  }
 
     useEffect(()=>{
         editOn();
@@ -69,14 +84,17 @@ const handleAddDetails = async (e) => {
             const docRef = doc(collection(db,"Users",auth.currentUser.uid,"list"),editId);
             await setDoc(docRef,userDetails);
             alert(`${userDetails.transaction_type} is saved successfully`);
-            setUserList(prevData=>prevData.map(item=>(item.id==editId ? {...item,...userDetails} : item)))
+            // setUserList(prevData=>prevData.map(item=>(item.id==editId ? {...item,...userDetails} : item)))
+            fetchData();
+
             setEditId(null);
             
         }
         else{
             const listRef = collection(db,"Users",auth.currentUser.uid,"list");
             const addItem = await addDoc(listRef, userDetails);
-            setUserList([...userList, { id: addItem.id, ...userDetails }]);
+            // setUserList([...userList, { id: addItem.id, ...userDetails }]);
+            fetchData()
         }
         
        
