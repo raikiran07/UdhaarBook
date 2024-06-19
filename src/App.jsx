@@ -44,60 +44,60 @@ function App() {
   ])
   
 
-  useEffect(()=>{
+  // useEffect(()=>{
 
-    const unsubscribeAuth = onAuthStateChanged(auth,async(user)=>{
-      console.log(user)
-      if(user){
-        const docRef = doc(db,"Users",user.uid);
-                // reference for retrieving the subcollection list
-                const listRef = collection(db,"Users",auth.currentUser.uid,"list");
+  //   const unsubscribeAuth = onAuthStateChanged(auth,async(user)=>{
+  //     console.log(user)
+  //     if(user){
+  //       const docRef = doc(db,"Users",user.uid);
+  //               // reference for retrieving the subcollection list
+  //               const listRef = collection(db,"Users",auth.currentUser.uid,"list");
 
-                const docSnap = await getDoc(docRef);
-                if(docSnap.exists()){
+  //               const docSnap = await getDoc(docRef);
+  //               if(docSnap.exists()){
                     
-                    const {email,firstName,lastName} = docSnap.data();
-                    setUser({
-                        email,
-                        firstName,
-                        lastName
-                    })
+  //                   const {email,firstName,lastName} = docSnap.data();
+  //                   setUser({
+  //                       email,
+  //                       firstName,
+  //                       lastName
+  //                   })
 
                 
-                }
-                else{
-                    console.log("something went wrong...")
-                }
+  //               }
+  //               else{
+  //                   console.log("something went wrong...")
+  //               }
 
-                const snapshot = await getDocs(listRef);
+  //               const snapshot = await getDocs(listRef);
 
-                if(snapshot){
-                    const list = snapshot.docs.map(doc => {
-                        const docData = doc.data();
-                        const convertedData = {
-                            id:doc.id,
-                            ...doc.data(),
-                            taken_date:new Date(docData.taken_date)
-                        }
-                        return convertedData;
+  //               if(snapshot){
+  //                   const list = snapshot.docs.map(doc => {
+  //                       const docData = doc.data();
+  //                       const convertedData = {
+  //                           id:doc.id,
+  //                           ...doc.data(),
+  //                           taken_date:new Date(docData.taken_date)
+  //                       }
+  //                       return convertedData;
                        
-                        });
+  //                       });
 
-                        setUserList([...list].sort((a,b)=>a.taken_date - b.taken_date))
-                        setIsLoading(false)
-      }
-      else{
-        console.log("no user present")
-      }
-    }
-    else{
-      setIsLoading(false)
-      // window.location.href = "/login"
-    }
-    })
+  //                       setUserList([...list].sort((a,b)=>a.taken_date - b.taken_date))
+  //                       setIsLoading(false)
+  //     }
+  //     else{
+  //       console.log("no user present")
+  //     }
+  //   }
+  //   else{
+  //     setIsLoading(false)
+  //     // window.location.href = "/login"
+  //   }
+  //   })
 
-    return unsubscribeAuth;
-  },[])
+  //   return unsubscribeAuth;
+  // },[])
 
  return (
     <>

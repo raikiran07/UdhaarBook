@@ -1,4 +1,4 @@
-import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import {signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState,useEffect } from 'react'
 import { CgProfile } from "react-icons/cg";
 import {auth,db} from '../firebaseConnection/connection'
@@ -16,7 +16,7 @@ const Login = () => {
     const [password,setPassword] = useState("")
     
 
-    const {setUser,setUserList} = useContext(userListContext);
+    const {setIsSignIn,isSignIn} = useContext(userListContext);
     const navigate = useNavigate()
     
 
@@ -30,57 +30,10 @@ const Login = () => {
             
             
             auth.onAuthStateChanged(async (user)=>{
-                console.log(user)
-                // for retrieving user data
-                const docRef = doc(db,"Users",user.uid);
-                // reference for retrieving the subcollection list
-                const listRef = collection(db,"Users",auth.currentUser.uid,"list");
-
-                const docSnap = await getDoc(docRef);
-                if(docSnap.exists()){
-                    
-                    const {email,firstName,lastName} = docSnap.data();
-                    setUser({
-                        email,
-                        firstName,
-                        lastName
-                    })
-
-                
-                }
-                else{
-                    console.log("something went wrong...")
-                }
-
-                const snapshot = await getDocs(listRef);
-
-                if(snapshot){
-                    const list = snapshot.docs.map(doc => {
-                        const docData = doc.data();
-                        const convertedData = {
-                            id:doc.id,
-                            ...doc.data(),
-                            taken_date:new Date(docData.taken_date)
-                        }
-                        return convertedData;
-                       
-                        });
-
-                        
-
-
-
-                        
-        
-                        setUserList([...list].sort((a,b)=>a.taken_date - b.taken_date))
-                }
-
-               
-                
-               
-
-                
-            })
+                setIsSignIn(true)
+                localStorage.setItem("uid",user.uid);
+             
+               })
 
             toast.success("Login successful");
             navigate("/dashboard")
@@ -97,11 +50,10 @@ const Login = () => {
 
     // redirecting user to dashboard if already signedIn
     useEffect(()=>{
-        onAuthStateChanged(auth,(user)=>{
-            if(user){
-                navigate("/dashboard")
-            }
-        })
+        console.log(isSignIn)
+      if(isSignIn){
+        navigate("/dashboard")
+      }
     },[])
 
 

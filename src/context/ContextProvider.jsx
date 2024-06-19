@@ -27,6 +27,7 @@ const ContextProvider = ({children}) => {
   const [currentUser,setUser] = useState({})
   const [isLoading,setIsLoading] = useState(true)
   const [editId,setEditId] = useState(null)
+  const [isSignIn,setIsSignIn] = useState(false)
 
 
 
@@ -38,7 +39,7 @@ const ContextProvider = ({children}) => {
 
  
   return (
-   <userListContext.Provider value={{userList,setUserList,isAddBox,setIsAddBox,userCollectionRef,currentUser,setUser,collection,isLoading,setIsLoading,editId,setEditId}}>
+   <userListContext.Provider value={{userList,setUserList,isAddBox,setIsAddBox,userCollectionRef,currentUser,setUser,collection,isLoading,setIsLoading,editId,setEditId,isSignIn,setIsSignIn}}>
     {children}
    </userListContext.Provider>
   )

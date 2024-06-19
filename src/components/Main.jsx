@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { IoAdd } from "react-icons/io5";
 
 import { useState } from 'react';
@@ -8,12 +8,14 @@ import { useContext } from 'react';
 import { userListContext } from '../context/ContextProvider';
 import { FaArrowDown } from "react-icons/fa6";
 import { FaArrowUp } from "react-icons/fa6";
+import { doc,collection,getDoc,getDocs } from 'firebase/firestore';
+import { db } from '../firebaseConnection/connection';
 
 
 const Main = () => {
 
   
-    const {userList,setUserList,isAddBox,setIsAddBox,isLoading} = useContext(userListContext)
+    const {userList,setUserList,isAddBox,setIsAddBox,isLoading,setIsLoading,setUser} = useContext(userListContext)
     const [search,setSearch] = useState("")
     console.log(userList)
     
@@ -22,6 +24,70 @@ const Main = () => {
 
     const totalDebtList = userList?.filter(user=>user?.transaction_type=="debt")
     const totalDebt = totalDebtList?.reduce((total,user)=>Number(total) + Number(user?.amount),0);
+
+
+    const fetchData = async () => {
+        try {
+               // for retrieving user data
+               const userId = localStorage.getItem("uid")
+               const docRef = doc(db,"Users",userId);
+               // reference for retrieving the subcollection list
+               const listRef = collection(db,"Users",userId,"list");
+
+               const docSnap = await getDoc(docRef);
+               console.log(docSnap.data())
+               if(docSnap.exists()){
+                   
+                   const {email,firstName,lastName} = docSnap.data();
+                   setUser({
+                       email,
+                       firstName,
+                       lastName
+                   })
+
+               
+               }
+               else{
+                   console.log("something went wrong...")
+               }
+
+               const snapshot = await getDocs(listRef);
+
+               if(snapshot){
+                   const list = snapshot.docs.map(doc => {
+                       const docData = doc.data();
+                       const convertedData = {
+                           id:doc.id,
+                           ...doc.data(),
+                           taken_date:new Date(docData.taken_date)
+                       }
+                       return convertedData;
+                      
+                       });
+
+                       
+
+
+
+                       
+       
+                       setUserList([...list].sort((a,b)=>a.taken_date - b.taken_date))
+               }
+
+               setIsLoading(false)
+
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error.message)
+        }
+    }
+
+    useEffect(()=>{
+
+        fetchData()
+
+
+    },[])
 
     
    

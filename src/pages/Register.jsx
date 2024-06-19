@@ -5,11 +5,12 @@ import {auth,db} from '../firebaseConnection/connection'
 import { useContext } from 'react';
 import { userListContext } from '../context/ContextProvider';
 import { Link, useNavigate } from 'react-router-dom';
+import { doc,setDoc,collection,addDoc } from 'firebase/firestore';
 
 
 const Register = () => {
 
-    const {doc,setDoc,collection,addDoc} = useContext(userListContext)
+   
     const navigate = new useNavigate()
   
 

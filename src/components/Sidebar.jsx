@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
 
-  const {currentUser,isLoading,setUser,setUserList} = useContext(userListContext)
+  const {currentUser,isLoading,setUser,setUserList,setIsSignIn} = useContext(userListContext)
   const navigate = new useNavigate()
 
   const handleLogout = async () => {
@@ -17,6 +17,8 @@ const Sidebar = () => {
       const isLogout = confirm("Do you want to logout?");
       if(isLogout){
         await auth.signOut();
+        localStorage.clear()
+        setIsSignIn(false)
         setUser(null)
         setUserList([])
         navigate("/login")
