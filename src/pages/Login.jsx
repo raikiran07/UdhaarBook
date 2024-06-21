@@ -47,17 +47,18 @@ const Login = () => {
 
     // redirecting user to dashboard if already signedIn
     useEffect(()=>{
-        console.log(isSignIn)
-      if(isSignIn){
+       
+      if(localStorage.getItem("uid")){
         navigate("/dashboard")
       }
+     
     },[])
 
 
 
   return (
-    <div className='w-full h-[100vh] flex items-center justify-center'>
-        <form onSubmit={handleLoginSubmit} className=' bg-[#555555] px-16 py-8 rounded-md shadow-md shadow-gray-400'>
+    <div className='w-full h-[100vh] flex items-center justify-center bg-[#0f0f0f]'>
+        <form onSubmit={handleLoginSubmit} className=' bg-[#141414]  px-16 py-8 rounded-md thinShadow '>
             <div className='text-5xl flex items-center justify-center text-white'>
             <CgProfile />
             </div>

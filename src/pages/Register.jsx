@@ -59,40 +59,43 @@ const Register = () => {
 
 
   return (
-    <div className='w-full h-[100vh] flex items-center justify-center'>
-        <form onSubmit={handleRegisterSubmit} className=' bg-[#555555] px-16 py-8 rounded-md shadow-md shadow-gray-400'>
+    <div className='w-full h-[100vh] flex items-center justify-center bg-[#0f0f0f]'>
+        <form onSubmit={handleRegisterSubmit} className=' bg-[#141414] px-16 py-8 rounded-md thinShadow'>
             <div className='text-5xl flex items-center justify-center text-white'>
-            <CgProfile />
+            {/* <CgProfile />
+             */}
+             <h3 className='text-[1.5rem]'>New User</h3>
             </div>
             <div className='mt-8'>
                 <label htmlFor="firstname" className='font-semibold text-white'>First Name</label>
-                <input type="text" className='block border-none outline-none px-2 py-2 rounded-sm text-sm   text-gray-600 min-w-[250px] bg-gray-300' id="firstname"
+                <input type="text" className='block border-none px-2 py-2 rounded-sm text-sm   text-gray-600 min-w-[250px] bg-gray-300' id="firstname"
                 value={firstName}
                 onChange={(e)=>setFirstName(e.target.value)}
-
+                required
                 />
             </div>
             <div className='mt-4'>
                 <label htmlFor="lastname" className='font-semibold text-white'>Last Name</label>
-                <input type="text" className='block border-none outline-none px-2 py-2 rounded-sm text-sm   text-gray-600 min-w-[250px] bg-gray-300' id="lastname"
+                <input type="text" className='block border-none px-2 py-2 rounded-sm text-sm   text-gray-600 min-w-[250px] bg-gray-300' id="lastname"
                 value={lastName}
                 onChange={(e)=>setLastName(e.target.value)}
-
+                required
                 />
             </div>
             <div className='mt-4'>
                 <label htmlFor="email" className='font-semibold text-white'>email</label>
-                <input type="email" className='block border-none outline-none px-2 py-2 rounded-sm text-sm   text-gray-600 min-w-[250px] bg-gray-300' id="email"
+                <input type="email" className='block border-none px-2 py-2 rounded-sm text-sm   text-gray-600 min-w-[250px] bg-gray-300' id="email"
                 value={email}
                 onChange={(e)=>setemail(e.target.value)}
-
+                required
                 />
             </div>
             <div className='mt-3'>
                 <label htmlFor="password" className='font-semibold text-white'>Password</label>
-                <input type="password" className='block border-none outline-none px-2 py-2 rounded-sm text-sm   text-gray-600 min-w-[250px] bg-gray-300' id="password"
+                <input type="password" className='block border-none px-2 py-2 rounded-sm text-sm   text-gray-600 min-w-[250px] bg-gray-300' id="password"
                 value={password}
                 onChange={(e)=>setPassword(e.target.value)}
+                required
                 />
             </div>
             <div className='mt-8 mb-4'>
