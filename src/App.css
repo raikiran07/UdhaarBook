@@ -6,7 +6,7 @@
 body{
   min-width: 100%;
   min-height: 100vh;
-  background-color: #333;
+  background-color: #141414; 
   font-family: "Lato", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -57,4 +57,7 @@ body{
 ::-webkit-scrollbar {
   display: none;
 }
+
+
+
 

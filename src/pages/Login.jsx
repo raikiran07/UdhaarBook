@@ -29,13 +29,19 @@ const Login = () => {
             await signInWithEmailAndPassword(auth,email,password);
             
             
-            auth.onAuthStateChanged(async (user)=>{
-                setIsSignIn(true)
-                localStorage.setItem("uid",user.uid);
-             
-               })
+            // Immediately set the user sign-in state and store UID
+            setIsSignIn(true);
+            const user = auth.currentUser;
+            console.log(user)
+            if (user) {
+                localStorage.setItem("uid", user.uid);
+            }
 
-            navigate("/dashboard")
+            toast.success("login successful")
+            
+            setTimeout(()=>{
+              navigate("/dashboard")
+            },5000)
         
             console.log("login successfull...")
         } catch (error) {
@@ -82,13 +88,20 @@ const Login = () => {
             <div className='mt-8 mb-4'>
               <button type='submit' className=' w-full py-2 font-semibold tracking-wider rounded-md text-white bg-[#282928]'>Login</button>
             </div>
-            <div>
+            <div className='text-[0.8rem] flex items-end justify-between'>
+              <Link to="/forgotpassword">
+              <span className='text-white tracking-wide underline'>Forgot Password</span>
+              </Link>
                <Link to="/register">
                <span className='text-white tracking-wide underline'>signup</span>
                </Link>
+
             </div>
         </form>
 
+        <ToastContainer
+        autoClose={2000}
+         />
        
        
        

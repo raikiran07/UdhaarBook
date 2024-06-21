@@ -12,6 +12,8 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import LandingPage from './pages/LandingPage'
+import ForgotPassword from './pages/ForgotPassword'
+import Investment from './pages/Investment'
 
 
 
@@ -40,6 +42,14 @@ function App() {
       path:"/dashboard",
       element:<Dashboard />
   
+    },
+    {
+      path:"/investment",
+      element:<Investment />
+    },
+    {
+      path:"/forgotpassword",
+      element:<ForgotPassword />
     }
   ])
   
@@ -105,7 +115,7 @@ function App() {
    
       
     <RouterProvider router = {router}>
-          <Outlet />
+         
     </RouterProvider>
   
    

@@ -28,6 +28,7 @@ const ContextProvider = ({children}) => {
   const [isLoading,setIsLoading] = useState(true)
   const [editId,setEditId] = useState(null)
   const [isSignIn,setIsSignIn] = useState(false)
+  const [navActive,setNavActive] = useState("dashboard")
 
 
 
@@ -39,7 +40,7 @@ const ContextProvider = ({children}) => {
 
  
   return (
-   <userListContext.Provider value={{userList,setUserList,isAddBox,setIsAddBox,userCollectionRef,currentUser,setUser,collection,isLoading,setIsLoading,editId,setEditId,isSignIn,setIsSignIn}}>
+   <userListContext.Provider value={{userList,setUserList,isAddBox,setIsAddBox,userCollectionRef,currentUser,setUser,collection,isLoading,setIsLoading,editId,setEditId,isSignIn,setIsSignIn,navActive,setNavActive}}>
     {children}
    </userListContext.Provider>
   )

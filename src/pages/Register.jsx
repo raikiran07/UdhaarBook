@@ -6,6 +6,8 @@ import { useContext } from 'react';
 import { userListContext } from '../context/ContextProvider';
 import { Link, useNavigate } from 'react-router-dom';
 import { doc,setDoc,collection,addDoc } from 'firebase/firestore';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Register = () => {
@@ -44,9 +46,13 @@ const Register = () => {
                
 
                 console.log('Subcollection created successfully');
+                toast.success("registration successful")
 
+                setTimeout(()=>{
+                    navigate("/login")
+                },3000)
                 
-                navigate("/login")
+              
             }
             console.log("registered successfully and list created...")
         } catch (error) {
@@ -108,6 +114,20 @@ const Register = () => {
                 </Link>
             </p>
         </form>
+
+        {/* toastify message */}
+        <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            />
     </div>
   )
 }

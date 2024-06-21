@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoLogOut } from "react-icons/io5";
 import { useContext } from 'react';
 import { userListContext } from '../context/ContextProvider';
 import {auth} from '../firebaseConnection/connection'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams,Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -11,8 +11,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Sidebar = () => {
 
-  const {currentUser,isLoading,setUser,setUserList,setIsSignIn} = useContext(userListContext)
+  const {currentUser,isLoading,setUser,setUserList,setIsSignIn,navActive,setNavActive} = useContext(userListContext)
   const navigate = new useNavigate()
+
+  console.log(navActive)
+  
 
   const handleLogout = async () => {
     try {
@@ -46,22 +49,28 @@ const Sidebar = () => {
             
         </div>
         <div className='nav-items'>
-            {/* <ul className='mt-16'>
-                <li className='mt-4'>
-                <button className='border w-[60%] flex items-center justify-center gap-3 p-2 mx-auto text-left rounded-md'>
-                <GiPayMoney className='text-2xl' />
-                <p>To Pay</p>
+            <ul className='mt-16'>
+                <li className=''>
+                <button className={`w-[60%] flex items-center justify-start gap-3 p-2 mx-auto rounded-md ${navActive=="dashboard" ? "thinShadow" : ""}`}>
+                <Link to="/dashboard">
+                udhaar
+                </Link>
                 </button>
 
                 </li>
-                <li className='mt-4'>
-                <button className='border w-[60%] flex items-center justify-center gap-3 p-2 mx-auto rounded-md'>
-                <GiReceiveMoney className='text-2xl'/>
-                <p>To Receive</p>
+                <li className=''>
+                <button className={`w-[60%] flex items-center justify-start gap-3 p-2 mx-auto rounded-md ${navActive=="investment" ? "thinShadow" : ""}`}>
+               <Link to="/investment">investment</Link>
                 </button>
 
                 </li>
-            </ul> */}
+                <li className=''>
+                <button className={`w-[60%] flex items-center justify-start gap-3 p-2 mx-auto rounded-md ${navActive=="analyse" ? "thinShadow" : ""}`}>
+               <Link to="/analyse">analysis</Link>
+                </button>
+
+                </li>
+            </ul>
             
         </div>
             
