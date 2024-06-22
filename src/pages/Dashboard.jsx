@@ -9,7 +9,7 @@ import { useContext } from 'react';
 
 const Dashboard = () => {
 const navigate =  useNavigate()
-const {setNavActive,navActive} = useContext(userListContext)
+const {setNavActive,navActive,isAddBox} = useContext(userListContext)
 console.log(navActive)
 const location = useLocation()
 const url = location.pathname.slice(1)
@@ -27,15 +27,16 @@ const url = location.pathname.slice(1)
 
 
   return (
-    <>
-    <div className='flex max-h-screen overflow-hidden'>
+    <div className='relative w-full h-screen'>
+    <div className={`flex max-h-screen overflow-hidden `}>
         <Sidebar/>
         <Main/>
         
         
     </div>
+   
     
-    </>
+    </div>
   )
 }
 

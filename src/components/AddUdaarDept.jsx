@@ -117,7 +117,7 @@ const handleCancel = () => {
   return (
      
       <div className="model">
-      <form onSubmit={handleAddDetails} className='grid grid-cols-2 max-w-fit border mx-auto p-4 border-gray-500 gap-6 rounded-md bg-opacity-100 bg-[#1f1f1f] text-white mt-[-8rem] font-light'>
+      <form onSubmit={handleAddDetails} className='addBox grid grid-cols-2 max-w-fit border mx-auto p-4 border-gray-500 gap-6 rounded-md bg-opacity-100 bg-[#1f1f1f] text-white mt-[-8rem] font-light z-50'>
        
           <div>
           <label htmlFor="name" className='mr-1 font-semibold'>

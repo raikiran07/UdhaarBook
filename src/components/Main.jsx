@@ -104,10 +104,10 @@ const Main = () => {
 
 
   return (
-    <aside className={`min-w-[85%] relative px-8 ${isAddBox ? "pseudoClass" : ""} bg-[#141414] overflow-y-auto`}>
+    <aside className={`min-w-[85%] relative px-8  bg-[#141414] overflow-y-auto ${isAddBox ? "pseudoClass": ""}`}>
         <main>
             <section className='flex items-center mt-8  gap-5'>
-                <div className='card flex items-center justify-between min-h-[100px] p-2 gap-5 min-w-[250px] bg-[#1d1d1d] rounded-md text-white thinShadow relative'>
+                <div className={`card flex items-center justify-between min-h-[100px] p-2 gap-5 min-w-[250px] bg-[#1d1d1d] rounded-md text-white thinShadow ${isAddBox ? "" : "relative"}`}>
                   
                     <FaArrowDown className='absolute top-2 right-2 border border-gray-500 p-1 rounded-sm text-xl bg-[#3e3e3e] text-[#68bc44]' />
                     
@@ -124,7 +124,7 @@ const Main = () => {
 
                 </div>
 
-                <div className='card  flex items-center justify-between min-h-[100px] p-2 gap-5 min-w-[250px] bg-[#1d1d1d] rounded-md text-white thinShadow relative'>
+                <div className={`card  flex items-center justify-between min-h-[100px] p-2 gap-5 min-w-[250px] bg-[#1d1d1d] rounded-md text-white thinShadow  ${isAddBox ? "" : "relative"}`}>
                 <FaArrowUp className='absolute top-2 right-2 border border-gray-500 p-1 rounded-sm text-xl bg-[#3e3e3e] text-[#f5072b]' />
                     <p className='text-sm'>
                         Total amount <br/> to give
@@ -165,7 +165,7 @@ const Main = () => {
 
         {
             isAddBox && (
-                <div className='z-100 fixed top-[50%] left-[50%] translate-x-[-30%]'>
+                <div className='fixed top-[50%] left-[50%] translate-x-[-30%]'>
                     <AddUdaarDept fetchData={fetchData} />
                 </div>
                 

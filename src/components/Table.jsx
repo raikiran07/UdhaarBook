@@ -12,7 +12,7 @@ import { deleteDoc,doc } from 'firebase/firestore';
 
 const Table = ({search}) => {
 
-   const {userList,setUserList,setIsAddBox,isLoading,setEditId,setIsLoading} = useContext(userListContext)
+   const {userList,setUserList,setIsAddBox,isLoading,setEditId,setIsLoading,isAddBox} = useContext(userListContext)
 
    console.log(userList)
    
@@ -71,7 +71,7 @@ useEffect(()=>{
        
             <div className='table-container h-full'>
                
-                <div className="table-head grid grid-cols-7 bg-[#2b2b2b] rounded-md text-white sticky top-0">
+                <div className={`table-head grid grid-cols-7 bg-[#2b2b2b] rounded-md text-white ${isAddBox ? "" : "sticky top-0"}`}>
                 <p className='px-6 py-3'>Name</p>
                 <p className='px-6 py-3'>Transaction Type</p>
                 <p className='px-6 py-3'>Taken Date</p>
