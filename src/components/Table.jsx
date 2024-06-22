@@ -34,6 +34,7 @@ const Table = ({search}) => {
 
 // handle delete functionality
 const handleDelete = async(id) => {
+    console.log(id)
     try {
       const isConfirm = confirm("Do you want to delete?");
       if(isConfirm){

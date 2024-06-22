@@ -43,9 +43,9 @@ const Register = () => {
                  // Use addDoc to create a subcollection named 'tasks' under the user's document
 
                 const taskCollectionRef = collection(userRef, 'list');
-               
+                const investmentList = collection(userRef,"investments")
 
-                console.log('Subcollection created successfully');
+               
                 toast.success("registration successful")
 
                 setTimeout(()=>{
@@ -54,7 +54,7 @@ const Register = () => {
                 
               
             }
-            console.log("registered successfully and list created...")
+           
         } catch (error) {
             console.log(error.message)
         }

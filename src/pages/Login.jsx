@@ -39,13 +39,15 @@ const Login = () => {
 
             toast.success("login successful")
             
-            setTimeout(()=>{
-              navigate("/dashboard")
-            },5000)
+            // setTimeout(()=>{
+            //   navigate("/dashboard")
+            // },5000)
+            navigate("/dashboard")
         
-            console.log("login successfull...")
+          
         } catch (error) {
-            toast.error(error.message);
+          const err = error.message.slice(22,-2)
+           toast.error(err)
         }
         
     }
@@ -55,6 +57,7 @@ const Login = () => {
     useEffect(()=>{
        
       if(localStorage.getItem("uid")){
+        setIsSignIn(true)
         navigate("/dashboard")
       }
      

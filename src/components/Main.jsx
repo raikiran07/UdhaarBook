@@ -52,6 +52,7 @@ const Main = () => {
                }
 
                const snapshot = await getDocs(listRef);
+              
 
                if(snapshot){
                    const list = snapshot.docs.map(doc => {

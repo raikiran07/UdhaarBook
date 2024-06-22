@@ -14,6 +14,8 @@ import Dashboard from './pages/Dashboard'
 import LandingPage from './pages/LandingPage'
 import ForgotPassword from './pages/ForgotPassword'
 import Investment from './pages/Investment'
+import Analyse from './pages/Analyse'
+import NotFound from './pages/NotFound'
 
 
 
@@ -48,8 +50,16 @@ function App() {
       element:<Investment />
     },
     {
+      path:"/analyse",
+      element:<Analyse />
+    },
+    {
       path:"/forgotpassword",
       element:<ForgotPassword />
+    },
+    {
+      path:"/*",
+      element:<NotFound />
     }
   ])
   
