@@ -64,6 +64,27 @@ body{
   display: none;
 }
 
+/* landing page */
+.curveUnderlined {
+  position: relative;
+  display: inline-block !important;
+  text-align: center;
+  margin:0 auto;
+  
+}
+
+.curveUnderlined::before {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  height: 7px;
+  width: 100% !important;
+  border: solid 8px yellow;
+  border-color: yellow transparent transparent transparent;
+  border-radius: 50%;
+}
+
 
 
 
