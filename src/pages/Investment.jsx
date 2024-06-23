@@ -15,7 +15,7 @@ import TotalInvestment from '../components/TotalInvestment'
 const Investment = () => {
 
 const navigate =  useNavigate()
-const {setNavActive,navActive,isAddBox,setIsAddBox,isSignIn} = useContext(userListContext)
+const {setNavActive,isSignIn} = useContext(userListContext)
 const [search,setSearch] = useState("")
 const [addInvestment,setAddInvestment] = useState(false)
 const location = useLocation()
@@ -71,7 +71,7 @@ useEffect(()=>{
   return (
     <div className={`flex max-h-screen overflow-hidden `}>
     <Sidebar/>
-    <aside className={`min-w-[85%] relative px-8 text-white overflow-y-auto `}>
+    <aside className={`min-w-[85%] relative px-8 text-white overflow-y-auto ${addInvestment ? "pseudoClass" : ""}`}>
        
         <TotalInvestment total={total} addInvestment={addInvestment} />
             <div className="search-bar flex items-center mt-8 justify-between">
@@ -89,7 +89,9 @@ useEffect(()=>{
             </div>
 
             {
-              addInvestment && <AddInvestment setAddInvestment={setAddInvestment} setInvestmentList={setInvestmentList} fetchInvestmentList={fetchInvestmentList} />
+              addInvestment && <div className='fixed top-[50%] left-[50%] translate-x-[-30%]'>
+              <AddInvestment setAddInvestment={setAddInvestment} setInvestmentList={setInvestmentList} fetchInvestmentList={fetchInvestmentList} />
+              </div>
             }
 
             <InvestmentList 

@@ -10,9 +10,10 @@ const TotalInvestment = ({addInvestment,total}) => {
                         Total amount 
                     </p>
                     <p className='text-[2rem]'>
-                      {
-                        total
-                      }
+                      <span className='mr-2'>Rs</span>
+                        {
+                          total
+                        }
                     </p>
                   
 

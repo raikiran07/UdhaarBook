@@ -40,7 +40,14 @@ const Sidebar = () => {
   return (
     <aside className=' min-w-[15%] min-h-screen p-2 bg-[#0f0f0f] relative text-white z-20'>
         <div className="profile text-center mt-8">
-            <div className='profileImage h-16 w-16 bg-white rounded-full mx-auto'></div>
+            <div className='profileImage h-16 w-16 bg-white rounded-full mx-auto text-black flex items-center justify-center'>
+              <p className='text-2xl font-semibold'>
+              {
+                currentUser?.firstName?.slice(0,1)?.toUpperCase()
+              }
+              </p>
+             
+            </div>
             {
               isLoading ? <p className='text-white'>Loading...</p> : (
                 <h2>{currentUser?.firstName}</h2>
