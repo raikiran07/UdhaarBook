@@ -107,7 +107,7 @@ const Main = () => {
   return (
     <aside className={`min-w-[85%] relative px-8  bg-[#141414] overflow-y-auto ${isAddBox ? "pseudoClass": ""}`}>
         <main>
-            <section className='flex items-center mt-8  gap-5'>
+            <section className='md:flex md:items-center mt-8  gap-5'>
                 <div className={`card flex items-center justify-between min-h-[100px] p-2 gap-5 min-w-[250px] bg-[#1d1d1d] rounded-md text-white thinShadow ${isAddBox ? "" : "relative"}`}>
                   
                     <FaArrowDown className='absolute top-2 right-2 border border-gray-500 p-1 rounded-sm text-xl bg-[#3e3e3e] text-[#68bc44]' />
@@ -125,7 +125,7 @@ const Main = () => {
 
                 </div>
 
-                <div className={`card  flex items-center justify-between min-h-[100px] p-2 gap-5 min-w-[250px] bg-[#1d1d1d] rounded-md text-white thinShadow  ${isAddBox ? "" : "relative"}`}>
+                <div className={`card mt-6 md:mt-0  flex items-center justify-between min-h-[100px] p-2 gap-5 min-w-[250px] bg-[#1d1d1d] rounded-md text-white thinShadow  ${isAddBox ? "" : "relative"}`}>
                 <FaArrowUp className='absolute top-2 right-2 border border-gray-500 p-1 rounded-sm text-xl bg-[#3e3e3e] text-[#f5072b]' />
                     <p className='text-sm'>
                         Total amount <br/> to give
@@ -140,7 +140,7 @@ const Main = () => {
                
             </section>
 
-            <div className="search-bar flex items-center mt-8 justify-between">
+            <div className="search-bar md:flex items-center mt-8 justify-between">
 
             <button className='border flex items-center p-2 gap-2 rounded-md bg-[#242424] text-white hover:bg-[#0f0f0f] hover:text-white' onClick={()=>setIsAddBox(true)}>
                 <IoAdd className='text-xl text-white' />
@@ -148,8 +148,8 @@ const Main = () => {
 
                 </button>
 
-            <div>
-                <input type="text" className='p-2 min-w-[250px] rounded-sm outline-none bg-[#2b2b2b] text-white font-light' placeholder='type...' value={search} onChange={(e)=>setSearch(e.target.value)} />
+            <div className='mt-4 md:mt-0'>
+                <input type="text" className='p-2 min-w-full md:min-w-[250px] rounded-sm outline-none bg-[#2b2b2b] text-white font-light' placeholder='type...' value={search} onChange={(e)=>setSearch(e.target.value)} />
             </div>
 
             </div>

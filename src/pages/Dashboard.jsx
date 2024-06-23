@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate,useLocation } from 'react-router-dom';
 import { userListContext } from '../context/ContextProvider';
 import { useContext } from 'react';
+import MobileNavbar from '../components/MobileNavbar';
 
 const Dashboard = () => {
 const navigate =  useNavigate()
@@ -29,6 +30,7 @@ console.log(isSignIn)
 
   return (
     <div className='relative w-full h-screen'>
+      <MobileNavbar/>
     <div className={`flex max-h-screen overflow-hidden `}>
         <Sidebar/>
         <Main/>

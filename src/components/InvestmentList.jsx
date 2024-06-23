@@ -49,7 +49,7 @@ const handleDelete = async (id) => {
        
     <div className='table-container h-full'>
        
-        <div className={`table-head grid grid-cols-5 bg-[#2b2b2b] rounded-md text-white `}>
+        <div className={`table-head grid grid-cols-5 bg-[#2b2b2b] rounded-md text-white place-items-center md:place-items-start`}>
         <p className='px-6 py-3'>Name</p>
         <p className='px-6 py-3'>Type</p>
         <p className='px-6 py-3'>Date</p>
@@ -75,15 +75,15 @@ const handleDelete = async (id) => {
 
                   investmentList?.map(investment=>{
                         return(
-                            <li className="border-b-[1px] border-gray-600 tracking-wider  grid grid-cols-5 font-light" key={investment.id}>
+                            <li className="border-b-[1px] border-gray-600 tracking-wider  grid grid-cols-5 font-light text-xs place-items-center md:place-items-start" key={investment.id}>
                             <p  className="px-6 py-4 font-medium text-white">{investment.name}</p>
                             <p  className="px-6 py-4 font-medium text-white">{investment.investment_type}</p>
                             <p  className="px-6 py-4 font-medium text-white">{`${convertDateIntoReadable(investment.date)}`}</p>
                             <p  className={`px-6 py-4 font-medium`}>{investment.amount}</p>
                            
-                            <p  className="px-6 py-4 font-medium text-white flex items-center gap-4">
+                            <p  className="px-6 py-4 text-white flex items-center gap-4">
                               
-                                <button className='border p-2 text-xl hover:bg-red-800'
+                                <button className='border p-2 text-sm hover:bg-red-800'
                                 onClick={()=>handleDelete(investment.id)}
                                 >
                                 <MdDelete />

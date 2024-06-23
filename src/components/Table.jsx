@@ -67,18 +67,18 @@ useEffect(()=>{
     
   return (
      
-    <section className='mt-8 p-8 rounded-md bg-[#1d1d1d] thinShadow text-sm h-[450px] overflow-y-auto'>
+    <section className='mt-8 p-2 md:p-8 rounded-md bg-[#1d1d1d] thinShadow text-[12px] h-[450px] overflow-y-auto'>
    
        
             <div className='table-container h-full'>
                
-                <div className={`table-head grid grid-cols-7 bg-[#2b2b2b] rounded-md text-white ${isAddBox ? "" : "sticky top-0"}`}>
+                <div className={`table-head grid grid-cols-5 md:grid-cols-7 bg-[#2b2b2b] rounded-md text-white ${isAddBox ? "" : "sticky top-0"}`}>
                 <p className='px-6 py-3'>Name</p>
                 <p className='px-6 py-3'>Transaction Type</p>
-                <p className='px-6 py-3'>Taken Date</p>
+                <p className='px-6 py-3 hidden md:block'>Taken Date</p>
                 <p className='px-6 py-3'>Amount</p>
                 <p className='px-6 py-3'>Return Date</p>
-                <p className='px-6 py-3'>Status</p>
+                <p className='px-6 py-3 hidden md:block'>Status</p>
                 <p className='px-6 py-3'>Action</p>
                 </div>
 
@@ -100,23 +100,23 @@ useEffect(()=>{
         
                             userList?.filter(user=>user?.name?.toLowerCase()?.includes(search) || user?.transaction_type?.toLowerCase()?.includes(search) || user?.status?.toLowerCase()?.includes(search))?.map(user=>{
                                 return(
-                                    <li className="border-b-[1px] border-gray-600 tracking-wider  grid grid-cols-7 font-light" key={user.id}>
+                                    <li className="border-b-[1px] border-gray-600 tracking-wider  grid grid-cols-5 md:grid-cols-7 font-light" key={user.id}>
                                     <p  className="px-6 py-4 font-medium text-white">{user.name}</p>
                                     <p  className="px-6 py-4 font-medium text-white">{user.transaction_type}</p>
                                     <p  className="px-6 py-4 font-medium text-white">{`${convertDateIntoReadable(user.taken_date)}`}</p>
                                     <p  className={`px-6 py-4 font-medium  ${user.transaction_type=="udhaar" ? "text-[#68bc44]" : "text-[#f5072b]"}`}>{user.amount}</p>
-                                    <p  className="px-6 py-4 font-medium text-white">{
+                                    <p  className="px-6 py-4 font-medium text-white hidden md:block">{
                                         `${convertDateIntoReadable(user.return_date) ? "NA" : convertDateIntoReadable(user.return_date) }`
                                     }</p>
-                                    <p  className="px-6 py-4 font-medium text-white">{user.status}</p>
-                                    <p  className="px-6 py-4 font-medium text-white flex items-center gap-4">
-                                        <button className='border p-2 text-xl hover:bg-blue-800 hover:text-white'
+                                    <p  className="px-6 py-4 font-medium text-white hidden md:block">{user.status}</p>
+                                    <p  className="px-6 py-4   text-white flex flex-col  md:flex-row items-center gap-2 md:gap-4">
+                                        <button className='border p-2 text-sm hover:bg-blue-800 hover:text-white'
                                         onClick={()=>handleEdit(user.id)}
                                         >
                                         <RiEdit2Fill />
                     
                                         </button>
-                                        <button className='border p-2 text-xl hover:bg-red-800'
+                                        <button className='border p-2 text-sm hover:bg-red-800'
                                         onClick={()=>handleDelete(user.id)}
                                         >
                                         <MdDelete />

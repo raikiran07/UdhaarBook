@@ -27,7 +27,7 @@ const Sidebar = () => {
         setIsSignIn(false)
         setUser(null)
         setUserList([])
-        navigate("/login")
+        navigate("/")
       }
       
     } catch (error) {
@@ -38,7 +38,7 @@ const Sidebar = () => {
 
 
   return (
-    <aside className=' min-w-[15%] min-h-screen p-2 bg-[#0f0f0f] relative text-white z-20'>
+    <aside className=' min-w-[15%] min-h-screen p-2 bg-[#0f0f0f] relative text-white z-20 hidden md:block'>
         <div className="profile text-center mt-8">
             <div className='profileImage h-16 w-16 bg-white rounded-full mx-auto text-black flex items-center justify-center'>
               <p className='text-2xl font-semibold'>
@@ -72,8 +72,8 @@ const Sidebar = () => {
 
                 </li>
                 <li className=''>
-                <button className={`w-[60%] flex items-center justify-start gap-3 p-2 mx-auto rounded-md ${navActive=="analyse" ? "thinShadow" : ""}`}>
-               <Link to="/analyse">analysis</Link>
+                <button className={`w-[60%] flex items-center justify-start gap-3 p-2 mx-auto rounded-md ${navActive=="analysis" ? "thinShadow" : ""}`}>
+               <Link to="/analysis">analysis</Link>
                 </button>
 
                 </li>

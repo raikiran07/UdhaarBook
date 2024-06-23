@@ -50,7 +50,7 @@ function App() {
       element:<Investment />
     },
     {
-      path:"/analyse",
+      path:"/analysis",
       element:<Analyse />
     },
     {

@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar'
 import { useNavigate,useLocation } from 'react-router-dom'
 import { useContext,useEffect } from 'react'
 import { userListContext } from '../context/ContextProvider'
+import MobileNavbar from '../components/MobileNavbar'
 
 const Analyse = () => {
 const navigate =  useNavigate()
@@ -23,12 +24,15 @@ useEffect(()=>{
   },[])
 
   return (
+    <>
+    <MobileNavbar />
     <div className={`flex max-h-screen overflow-hidden `}>
     <Sidebar />
     <aside className={`min-w-[85%] relative px-8 text-white overflow-y-auto py-4`}>
         <h2>Analysis of data, coming soon...</h2>
     </aside>
     </div>
+    </>
   )
 }
 

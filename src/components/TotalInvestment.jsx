@@ -9,7 +9,7 @@ const TotalInvestment = ({addInvestment,total}) => {
                     <p className='text-sm'>
                         Total amount 
                     </p>
-                    <p className='text-[2rem]'>
+                    <p className='text-[1.5rem]'>
                       <span className='mr-2'>Rs</span>
                         {
                           total

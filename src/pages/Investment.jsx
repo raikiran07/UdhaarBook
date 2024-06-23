@@ -10,6 +10,7 @@ import { getDocs,collection} from 'firebase/firestore'
 import InvestmentList from '../components/InvestmentList'
 import { db } from '../firebaseConnection/connection'
 import TotalInvestment from '../components/TotalInvestment'
+import MobileNavbar from '../components/MobileNavbar'
 
 
 const Investment = () => {
@@ -69,12 +70,14 @@ useEffect(()=>{
   
 
   return (
+    <>
+    <MobileNavbar />
     <div className={`flex max-h-screen overflow-hidden `}>
     <Sidebar/>
     <aside className={`min-w-[85%] relative px-8 text-white overflow-y-auto ${addInvestment ? "pseudoClass" : ""}`}>
        
         <TotalInvestment total={total} addInvestment={addInvestment} />
-            <div className="search-bar flex items-center mt-8 justify-between">
+            <div className="search-bar md:flex items-center mt-8 justify-between">
 
             <button className='border flex items-center p-2 gap-2 rounded-md bg-[#242424] text-white hover:bg-[#0f0f0f] hover:text-white' onClick={()=>setAddInvestment(true)}>
                 <IoAdd className='text-xl text-white' />
@@ -82,8 +85,8 @@ useEffect(()=>{
 
                 </button>
 
-            <div>
-                <input type="text" className='p-2 min-w-[250px] rounded-sm outline-none bg-[#2b2b2b] text-white font-light' placeholder='type...' value={search} onChange={(e)=>setSearch(e.target.value)} />
+            <div className='mt-4 md:mt-0'>
+                <input type="text" className='p-2 min-w-full md:min-w-[250px] rounded-sm outline-none bg-[#2b2b2b] text-white font-light' placeholder='type...' value={search} onChange={(e)=>setSearch(e.target.value)} />
             </div>
 
             </div>
@@ -107,6 +110,7 @@ useEffect(()=>{
     
     
 </div>
+</>
   )
 }
 

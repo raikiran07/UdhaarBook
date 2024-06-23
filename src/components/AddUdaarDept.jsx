@@ -117,9 +117,9 @@ const handleCancel = () => {
   return (
      
       <div className="model">
-      <form onSubmit={handleAddDetails} className='addBox grid grid-cols-2 max-w-fit border mx-auto p-4 border-gray-500 gap-6 rounded-md bg-opacity-100 bg-[#1f1f1f] text-white mt-[-8rem] font-light z-50'>
+      <form onSubmit={handleAddDetails} className='addBox grid grid-cols-1 md:grid-cols-2 min-w-[300px] md:min-w-fit border mx-auto p-4 border-gray-500 gap-6 rounded-md bg-opacity-100 bg-[#1f1f1f] text-white  font-light z-50 mt-[-18rem] ml-[-5rem]  '>
        
-          <div>
+          <div className='flex flex-col md:flex-row'>
           <label htmlFor="name" className='mr-1 font-semibold'>
               Name
           </label>
@@ -128,7 +128,7 @@ const handleCancel = () => {
            />
           </div>
 
-          <div>
+          <div className='flex flex-col md:flex-row'>
               <label htmlFor="transaction-type" className='mr-1 font-semibold'>Transaction Type</label>
               <select name="type" id="transaction-type" className='border border-gray-400 rounded-md p-[3px]  outline-none text-gray-300 bg-[#2a2929]'
               value={userDetails.transaction_type} onChange={(e)=>updateUserDetails(e,"transaction_type")}
@@ -141,7 +141,7 @@ const handleCancel = () => {
           
           
 
-          <div>
+          <div className='flex flex-col md:flex-row'>
               <label htmlFor="taken-date" className='mr-1 font-semibold'>Taken date</label>
               <input type="date" id="taken-date" className='border border-gray-400 rounded-md p-[3px] outline-none  bg-[#2a2929] text-gray-300'
               value={userDetails.taken_date} onChange={(e)=>updateUserDetails(e,"taken_date")}
@@ -149,7 +149,7 @@ const handleCancel = () => {
                />
           </div>
 
-          <div>
+          <div className='flex flex-col md:flex-row'>
               <label htmlFor="amount" className='mr-1 font-semibold'>Amount</label>
               <input type="number" id="amount" className='border border-gray-400 rounded-md p-[3px] outline-none text-gray-300 bg-[#2a2929]' 
               value={userDetails.amount} onChange={(e)=>updateUserDetails(e,"amount")}
@@ -157,7 +157,7 @@ const handleCancel = () => {
               />
           </div>
 
-          <div>
+          <div className='flex flex-col md:flex-row'>
               <label htmlFor="return-date" className='mr-1 font-semibold'>
                  Return Date
               </label>
@@ -166,7 +166,7 @@ const handleCancel = () => {
               
               />
           </div>
-          <div>
+          <div className='flex flex-col md:flex-row'>
               <label htmlFor="status" className='mr-2 font-semibold'>
                   Status
               </label>
