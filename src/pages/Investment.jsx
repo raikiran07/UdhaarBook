@@ -71,13 +71,16 @@ useEffect(()=>{
 
   return (
     <>
+    <div className='relative px-8 py-2 md:hidden'>
+       <h2 className='text-[1rem] text-[#ffbd59] font-consert'>udhaarbook.</h2>
+      </div>
     <MobileNavbar />
     <div className={`flex max-h-screen overflow-hidden `}>
     <Sidebar/>
-    <aside className={`min-w-[85%] relative px-8 text-white overflow-y-auto ${addInvestment ? "pseudoClass" : ""}`}>
+    <aside className={`min-w-[85%] relative px-8 text-white overflow-y-auto ${addInvestment ? "pseudoClass" : ""} text-xs md:text-base`}>
        
         <TotalInvestment total={total} addInvestment={addInvestment} />
-            <div className="search-bar md:flex items-center mt-8 justify-between">
+            <div className="search-bar md:flex items-center mt-4 md:mt-8 justify-between">
 
             <button className='border flex items-center p-2 gap-2 rounded-md bg-[#242424] text-white hover:bg-[#0f0f0f] hover:text-white' onClick={()=>setAddInvestment(true)}>
                 <IoAdd className='text-xl text-white' />

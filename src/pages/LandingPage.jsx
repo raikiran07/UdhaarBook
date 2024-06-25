@@ -5,7 +5,7 @@ import backgroundVideo from '../assets/backgroundVideo.mp4'
 
 const LandingPage = () => {
   return (
-    <div className='landing w-full h-[100vh] relative'>
+    <div className='landing w-full h-[100vh] relative text-xs md:text-base'>
       
         
         <header className='text-center text-white z-40 relative'>

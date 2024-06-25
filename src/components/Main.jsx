@@ -107,7 +107,7 @@ const Main = () => {
   return (
     <aside className={`min-w-[85%] relative px-8  bg-[#141414] overflow-y-auto ${isAddBox ? "pseudoClass": ""}`}>
         <main>
-            <section className='md:flex md:items-center mt-8  gap-5'>
+            <section className='md:flex md:items-center md:mt-8 mt-4  gap-5'>
                 <div className={`card flex items-center justify-between min-h-[100px] p-2 gap-5 min-w-[250px] bg-[#1d1d1d] rounded-md text-white thinShadow ${isAddBox ? "" : "relative"}`}>
                   
                     <FaArrowDown className='absolute top-2 right-2 border border-gray-500 p-1 rounded-sm text-xl bg-[#3e3e3e] text-[#68bc44]' />

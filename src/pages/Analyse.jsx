@@ -25,10 +25,13 @@ useEffect(()=>{
 
   return (
     <>
+    <div className='relative px-8 py-2 md:hidden'>
+       <h2 className='text-[1rem] text-[#ffbd59] font-consert'>udhaarbook.</h2>
+      </div>
     <MobileNavbar />
     <div className={`flex max-h-screen overflow-hidden `}>
     <Sidebar />
-    <aside className={`min-w-[85%] relative px-8 text-white overflow-y-auto py-4`}>
+    <aside className={`min-w-[85%] relative px-8 text-white overflow-y-auto py-4 text-xs md:text-base`}>
         <h2>Analysis of data, coming soon...</h2>
     </aside>
     </div>
