@@ -92,16 +92,6 @@ const Main = () => {
 
     },[])
 
-    
-   
-
-
-    
-
-   
-
-    
-    
 
 
   return (
@@ -110,7 +100,7 @@ const Main = () => {
             <section className='md:flex md:items-center md:mt-8 mt-4  gap-5'>
                 <div className={`card flex items-center justify-between min-h-[100px] p-2 gap-5 min-w-[250px] bg-[#1d1d1d] rounded-md text-white thinShadow ${isAddBox ? "" : "relative"}`}>
                   
-                    <FaArrowDown className='absolute top-2 right-2 border border-gray-500 p-1 rounded-sm text-xl bg-[#3e3e3e] text-[#68bc44]' />
+                    <FaArrowDown className={`absolute top-2 right-2 border border-gray-500 p-1 rounded-sm text-xl bg-[#3e3e3e] text-[#68bc44] ${isAddBox ? "hidden" : ""}`} />
                     
 
                     <p className='text-sm'>
@@ -126,7 +116,7 @@ const Main = () => {
                 </div>
 
                 <div className={`card mt-6 md:mt-0  flex items-center justify-between min-h-[100px] p-2 gap-5 min-w-[250px] bg-[#1d1d1d] rounded-md text-white thinShadow  ${isAddBox ? "" : "relative"}`}>
-                <FaArrowUp className='absolute top-2 right-2 border border-gray-500 p-1 rounded-sm text-xl bg-[#3e3e3e] text-[#f5072b]' />
+                <FaArrowUp className={`absolute top-2 right-2 border border-gray-500 p-1 rounded-sm text-xl bg-[#3e3e3e] text-[#f5072b] ${isAddBox ? "hidden" : ""}`} />
                     <p className='text-sm'>
                         Total amount <br/> to give
                     </p>
