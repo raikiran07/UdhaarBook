@@ -31,9 +31,7 @@ console.log(isSignIn)
 
   return (
     <div className='relative w-full h-screen text-xs md:text-base'>
-      <div className='relative px-8 py-2 md:hidden'>
-       <h2 className='text-[1rem] text-[#ffbd59] font-consert'>udhaarbook.</h2>
-      </div>
+     
       <MobileNavbar/>
     <div className={`flex max-h-screen overflow-hidden `}>
         <Sidebar/>

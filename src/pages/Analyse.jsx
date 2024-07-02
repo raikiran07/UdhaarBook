@@ -25,8 +25,7 @@ useEffect(()=>{
 
   return (
     <>
-    <div className='relative px-8 py-2 md:hidden'>
-       <h2 className='text-[1rem] text-[#ffbd59] font-consert'>udhaarbook.</h2>
+    <div className='relative md:hidden'>
       </div>
     <MobileNavbar />
     <div className={`flex max-h-screen overflow-hidden `}>
