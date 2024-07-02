@@ -35,8 +35,8 @@ const MobileNavbar = () => {
 
 
   return (
-    <div className='px-8 py-2'>
-    <div className='w-full  rounded-tl-md rounded-tr-md  text-white  flex items-center justify-between text-[1rem] md:hidden '>
+    <div className=''>
+    <div className='w-full  rounded-tl-md rounded-tr-md  text-white  flex items-center justify-between text-[1rem] md:hidden px-8 py-2 '>
      <div className='relative  md:hidden'>
        <h2 className='text-[1rem] text-[#ffbd59] font-consert'>udhaarbook.</h2>
       </div>
@@ -44,7 +44,7 @@ const MobileNavbar = () => {
     
     </div>
 
-    <div className='nav-items'>
+    <div className='nav-items px-8'>
     <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -75,7 +75,7 @@ const MobileNavbar = () => {
                       }
                      
                     >
-                     Dashboard
+                     Udhaar
                      
                     </Link>
                   </motion.li>
