@@ -10,15 +10,15 @@ const LandingPage = () => {
         
         <header className='text-center text-white z-40 relative'>
         <h1 className='curveFont text-[1.5rem]  pt-16 md:text-6xl'>Easy Peasy Udhaar Book</h1>
-        <h1 className='curveFont text-[1rem] lg:mt-2 md:text-6xl'>Manage your udhaar and debt</h1>
+        <h1 className='curveFont text-[1rem] mt-1 lg:mt-2 md:text-6xl'>Manage your udhaar and debt</h1>
         </header>
      <div className='w-full text-center'>
-     <h2 className='text-white text-center mt-24 text-2xl curveUnderlined mb-8'>Features and Process</h2>
+     <h2 className='text-white text-center mt-8 text-2xl curveUnderlined mb-8'>Features and Process</h2>
 
      </div>
        
        
-        <div className='flex flex-col items-center justify-center gap-4 max-w-[60%] mx-auto mt-4 ease-linear md:flex-row'>
+        <div className='flex flex-col items-center justify-center gap-4 max-w-[60%] mx-auto mt-4 ease-linear md:flex-row  min-w-[80%] md:min-w-[70%] pb-4'>
             <div className=' text-gray-800 border p-2 bg-gray-300 rounded-md min-h-[260px] flex-1 '>
             <h1 className='text-2xl bg-gray-800 text-white max-w-[50px] min-h-[50px] rounded-full flex items-center justify-center'>1</h1>
             <p className='text-lg tracking-wide min-h-32 mt-2'>

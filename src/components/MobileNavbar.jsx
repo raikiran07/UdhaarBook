@@ -130,6 +130,33 @@ const MobileNavbar = () => {
                      
                     </Link>
                   </motion.li>
+
+                  <motion.li
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 260,
+                      damping: 20,
+                      delay: 0.3
+                    }}
+                  
+                    className="w-full p-[0.08rem] rounded-xl bg-gradient-to-tr from-neutral-800 via-neutral-950 to-neutral-700 text-white"
+                  >
+                    <Link
+                     to="/"
+                      onClick={() => {
+                        localStorage.clear();
+                      }}
+                      className={
+                        "flex items-center justify-between w-full p-5 rounded-xl bg-neutral-950"
+                      }
+                     
+                    >
+                     Logout
+                     
+                    </Link>
+                  </motion.li>
             </ul>
           </motion.div>
         )}
