@@ -8,7 +8,9 @@ import { userListContext } from '../context/ContextProvider';
 import { Link,useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getDocs,doc } from 'firebase/firestore';
+import { getDocs,doc,setDoc } from 'firebase/firestore';
+import Google from '../assets/google.svg'
+import { signInWithPopup,GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
 
@@ -63,10 +65,65 @@ const Login = () => {
      
     },[])
 
+    // signIn with google
+    const SignUpWithGoogle = async () => {
+      console.log("singin with google")
+
+      try {
+          const provider = new GoogleAuthProvider();
+  
+      const result=await signInWithPopup(auth, provider)
+       
+         
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          if (!credential){
+              console.error("Error in user Credential")
+              return
+          }
+          const token = credential.accessToken;
+          const user = result.user;
+          const {email,uid} = user;
+          console.log(email,uid);
+          const userName = user.displayName.split(' ');
+
+          await setDoc(doc(db,"Users",user.uid),{
+            email:email,
+            firstName:userName[0],
+            lastName:userName[1]
+        })
+
+         // Create a subcollection 'tasks' under the user's document
+                // await db.collection('Users').doc(uid).collection('list')
+                const userRef = doc(db,"Users",user.uid);
+                 // Use addDoc to create a subcollection named 'tasks' under the user's document
+
+                const taskCollectionRef = collection(userRef, 'list');
+                const investmentList = collection(userRef,"investments")
+
+                setIsSignIn(true);
+                localStorage.setItem("uid", user.uid);
+                navigate("/dashboard")
+
+                
+
+
+          
+         
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error) {
+          
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          const email = error.customData.email;
+          const credential = GoogleAuthProvider.credentialFromError(error);
+  
+      }
+    };
+
 
 
   return (
-    <div className='w-full h-[100vh] flex items-center justify-center bg-[#0f0f0f]'>
+    <div className='w-full h-[100vh] flex flex-col items-center justify-center bg-[#0f0f0f] gap-4'>
         <form onSubmit={handleLoginSubmit} className=' bg-[#141414]  px-16 py-8 rounded-md thinShadow '>
             <div className='text-5xl flex items-center justify-center text-white'>
             <CgProfile />
@@ -100,7 +157,16 @@ const Login = () => {
                </Link>
 
             </div>
+            
         </form>
+        <div className="or text-white">
+          or
+        </div>
+        <div className="google-signin thinShadow cursor-pointer px-8 rounded-md py-2 flex items-center justify-center"
+        onClick={SignUpWithGoogle}
+        >
+                <img src={Google} alt="google icon" className='max-w-[35px]' />
+            </div>
 
         <ToastContainer
         autoClose={2000}
