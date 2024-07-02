@@ -40,7 +40,7 @@ const MobileNavbar = () => {
      <div className='relative  md:hidden'>
        <h2 className='text-[1rem] text-[#ffbd59] font-consert'>udhaarbook.</h2>
       </div>
-      <Hamburger toggled={isOpen} toggle={setOpen} className="text-base" />
+      <Hamburger toggled={isOpen} toggle={setOpen} size={15}/>
     
     </div>
 
