@@ -82,14 +82,17 @@ const Login = () => {
           }
           const token = credential.accessToken;
           const user = result.user;
-          const {email,uid} = user;
+          console.log(user)
+          const {email,uid,photoURL} = user;
           console.log(email,uid);
           const userName = user.displayName.split(' ');
+          console.log(userName)
 
           await setDoc(doc(db,"Users",user.uid),{
             email:email,
             firstName:userName[0],
-            lastName:userName[1]
+            lastName:userName[1] ? userName[1] : "",
+            profileUrl:photoURL
         })
 
          // Create a subcollection 'tasks' under the user's document
@@ -114,7 +117,8 @@ const Login = () => {
           
           const errorCode = error.code;
           const errorMessage = error.message;
-          const email = error.customData.email;
+          // const email = error.customData.email;
+          console.log(error)
           const credential = GoogleAuthProvider.credentialFromError(error);
   
       }

@@ -38,11 +38,12 @@ const Main = () => {
                console.log(docSnap.data())
                if(docSnap.exists()){
                    
-                   const {email,firstName,lastName} = docSnap.data();
+                   const {email,firstName,lastName,profileUrl} = docSnap.data();
                    setUser({
                        email,
                        firstName,
-                       lastName
+                       lastName,
+                       profileUrl:profileUrl
                    })
 
                

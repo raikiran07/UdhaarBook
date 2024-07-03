@@ -15,6 +15,7 @@ const Sidebar = () => {
   const navigate = new useNavigate()
 
   console.log(navActive)
+  console.log(currentUser)
   
 
   const handleLogout = async () => {
@@ -40,11 +41,12 @@ const Sidebar = () => {
   return (
     <aside className=' min-w-[15%] min-h-screen p-2 bg-[#0f0f0f] relative text-white z-20 hidden md:block'>
         <div className="profile text-center mt-8">
-            <div className='profileImage h-16 w-16 bg-white rounded-full mx-auto text-black flex items-center justify-center'>
+            <div className='profileImage h-16 w-16 bg-white rounded-full mx-auto text-black flex items-center justify-center overflow-hidden border-2'>
               <p className='text-2xl font-semibold'>
-              {
+              {/* {
                 currentUser?.firstName?.slice(0,1)?.toUpperCase()
-              }
+              } */}
+              <img src={currentUser?.profileUrl} alt="user profile picture" className='w-full' />
               </p>
              
             </div>

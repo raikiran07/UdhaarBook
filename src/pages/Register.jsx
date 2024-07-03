@@ -1,59 +1,117 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react'
 import { CgProfile } from "react-icons/cg";
-import {auth,db} from '../firebaseConnection/connection'
-import { useContext } from 'react';
+import {auth,db,storage} from '../firebaseConnection/connection'
+import { useContext,useRef } from 'react';
 import { userListContext } from '../context/ContextProvider';
 import { Link, useNavigate } from 'react-router-dom';
 import { doc,setDoc,collection,addDoc } from 'firebase/firestore';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { IoIosAddCircle } from "react-icons/io";
+import { FiUpload } from "react-icons/fi";
+import MaleProfile from '../assets/male-profile.png'
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 
 const Register = () => {
 
    
     const navigate = new useNavigate()
-  
+    const imgRef = useRef(null)
 
     const [email,setemail] = useState("")
     const [password,setPassword] = useState("")
     const [firstName,setFirstName] = useState("")
     const [lastName,setLastName] = useState("")
+    const [profileUrl,setProfileUrl] = useState(MaleProfile)
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [isUploading, setIsUploading] = useState(false);
+    const [error, setError] = useState(null);
+    const [imageUrl,setImageUrl] = useState("")
 
+   let downloadUrl = "";
 
 
     const handleRegisterSubmit = async(e) => {
         e.preventDefault();
+        setIsUploading(true)
         try {
+            if(!selectedImage){
+                return alert("please upload profile image");
+            }
+
+            setIsUploading(true);
+            setError(null);
+
             await createUserWithEmailAndPassword(auth,email,password);
             const user = auth.currentUser;
-            console.log(user)
+            const storageRef = ref(storage, `images/${selectedImage.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, selectedImage);
+
+            const selectedType = ["image/png", "image/jpg", "image/jpeg"];
+            const fileSize = 1048576;
+
+            if (selectedImage && selectedType.includes(selectedImage.type) && selectedImage.size <= fileSize){
+
+                setError(false)
+                uploadTask.on(
+                    "state_changed",
+                    (snapshot) => {
+                      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                      console.log('Upload is ' + progress + '% done');
+                      // Update UI with progress if needed
+                    },
+                    (error) => {
+                      setError(error);
+                      console.error(error);
+                    },
+                    async () => {
+                      downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
+                      setImageUrl(downloadUrl)
+                      console.log(downloadUrl)
+                      
+                      
             
-            if(user){
-                await setDoc(doc(db,"Users",user.uid),{
-                    email:user.email,
-                    firstName:firstName,
-                    lastName:lastName,
-                })
+                      // Save the download URL to Firestore
+                    //   const imageRef = collection(firestore, 'images'); // Adjust collection name as needed
+                    //   await addDoc(imageRef, { url: downloadUrl });
+            
+                      setIsUploading(false);
+                      console.log('Image uploaded successfully!');
+                      if(user){
+                        await setDoc(doc(db,"Users",user.uid),{
+                            email:user.email,
+                            firstName:firstName,
+                            lastName:lastName,
+                            profileUrl:downloadUrl
+                        })
+        
+                          // Create a subcollection 'tasks' under the user's document
+                        // await db.collection('Users').doc(uid).collection('list')
+                        const userRef = doc(db,"Users",user.uid);
+                         // Use addDoc to create a subcollection named 'tasks' under the user's document
+        
+                        const taskCollectionRef = collection(userRef, 'list');
+                        const investmentList = collection(userRef,"investments")
+        
+                       
+                        toast.success("registration successful")
+        
+                        setTimeout(()=>{
+                            navigate("/login")
+                        },3000)
+                        
+                      
+                    }
+                    }
+                  );
 
-                  // Create a subcollection 'tasks' under the user's document
-                // await db.collection('Users').doc(uid).collection('list')
-                const userRef = doc(db,"Users",user.uid);
-                 // Use addDoc to create a subcollection named 'tasks' under the user's document
-
-                const taskCollectionRef = collection(userRef, 'list');
-                const investmentList = collection(userRef,"investments")
-
-               
-                toast.success("registration successful")
-
-                setTimeout(()=>{
-                    navigate("/login")
-                },3000)
-                
-              
             }
+
+           
+            
+           
            
         } catch (error) {
             console.log(error.message)
@@ -62,15 +120,47 @@ const Register = () => {
         
     }
 
+    const handleUpload = () => {
+        imgRef.current.click();
+    }
+
+    const uploadImageDisplay = async() => {
+        const uploadedFile = imgRef.current.files[0];
+        setSelectedImage(uploadedFile)
+        const cachedURL = URL.createObjectURL(uploadedFile);
+        setProfileUrl(cachedURL);
+    }
+
 
 
   return (
     <div className='w-full h-[100vh] flex items-center justify-center bg-[#0f0f0f]'>
         <form onSubmit={handleRegisterSubmit} className=' bg-[#141414] px-16 py-8 rounded-md thinShadow'>
-            <div className='text-5xl flex items-center justify-center text-white'>
+        <h3 className='text-[1.5rem] text-white text-center'>New User</h3>
+        <div className='relative max-w-fit mx-auto'>
+
+        
+            <div className='flex items-center justify-center text-white p-1 w-12 h-12 mx-auto rounded-full bg-gray-100 cursor-pointer overflow-hidden'>
             {/* <CgProfile />
              */}
-             <h3 className='text-[1.5rem]'>New User</h3>
+             <input type="file" 
+             id="file"
+             ref={imgRef} 
+             onChange={uploadImageDisplay}
+             hidden />
+             
+            
+             <img src={profileUrl} alt="" className='w-[100%] h-[100%] object-cover scale-110' />
+
+             
+
+            </div>
+            {/* <IoIosAddCircle className='z-30 text-xl text-white absolute bottom-0 right-[-5px]' /> */}
+            <button className='flex items-center justify-center mt-2 text-xs p-1 gap-2 rounded-md bg-blue-600 text-white'
+            onClick={handleUpload}
+            >
+            <FiUpload /> upload
+            </button>
             </div>
             <div className='mt-8'>
                 <label htmlFor="firstname" className='font-semibold text-white'>First Name</label>
