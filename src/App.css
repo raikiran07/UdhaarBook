@@ -50,12 +50,13 @@ body{
 }
 
 .curveFont{
-  font-family: "Poppins", sans-serif;
+  font-family:sans-serif;
   font-weight: 400;
   font-style: normal;
   background: -webkit-linear-gradient(#5741fe, #dcd6d6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  line-height: 3rem;
 }
 
 .thinShadow{

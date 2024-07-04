@@ -23,12 +23,13 @@ const LandingPage = () => {
       </nav>
       
         
-        <header className='text-center text-white z-40 relative'>
-        <h1 className='curveFont text-[1.5rem]  pt-16 md:text-6xl'>Easy Peasy Udhaar Book</h1>
-        <h1 className='curveFont text-[1rem] mt-1 lg:mt-2 md:text-6xl'>Manage your udhaar and debt</h1>
+        <header className='text-center text-white z-40 relative pt-[2rem] md:pt-[4rem] px-1'>
+        <h1 className='curveFont text-[3rem] text-center  pt-16 md:text-6xl'>Easy Peasy Udhaar Book, <br/>Manage your udhaar and debt.</h1>
+        <p className='px-8 text-sm md:text-base mt-1 md:px-48'>udhaarbook is a free platform to maintain your udhaars and debts, where udhaar means money you have given to someone and debt means money that you have taken from someone else.</p>
+        
         </header>
      <div className='w-full text-center'>
-     <h2 className='text-white text-center mt-8 text-2xl curveUnderlined mb-8'>Features and Process</h2>
+     <h2 className='text-white text-center mt-8 text-xl curveUnderlined mb-8'>Features and Process</h2>
 
      </div>
        
