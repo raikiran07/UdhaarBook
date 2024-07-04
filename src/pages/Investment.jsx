@@ -11,6 +11,9 @@ import InvestmentList from '../components/InvestmentList'
 import { db } from '../firebaseConnection/connection'
 import TotalInvestment from '../components/TotalInvestment'
 import MobileNavbar from '../components/MobileNavbar'
+import { exportToExcel } from 'react-json-to-excel';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify'
 
 
 const Investment = () => {
@@ -67,6 +70,19 @@ useEffect(()=>{
     }
   }
 
+   // download table in excel format
+   const handleDownload = () => {
+    console.log("hello")
+    console.log(investmentList)
+    if(investmentList.length > 0){
+        const data = investmentList.map(({id,...rest})=>rest);
+        exportToExcel(data,"investmentlist");
+    }
+    else{
+        toast.info("Nothing to export!");
+    }
+    
+}
   
 
   return (
@@ -98,7 +114,11 @@ useEffect(()=>{
               <AddInvestment setAddInvestment={setAddInvestment} setInvestmentList={setInvestmentList} fetchInvestmentList={fetchInvestmentList} />
               </div>
             }
-
+           <div className='text-right'>
+                <button className='text-white bg-blue-800 px-2 py-1 cursor-pointer rounded-md mt-4'
+                onClick={handleDownload}
+                >download excel</button>
+               </div>
             <InvestmentList 
             investmentList={investmentList} 
             setInvestmentList={setInvestmentList} 
@@ -109,6 +129,7 @@ useEffect(()=>{
             
 
     </aside>
+    <ToastContainer />
     
     
 </div>

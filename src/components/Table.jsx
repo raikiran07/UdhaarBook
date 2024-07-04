@@ -8,6 +8,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { collection } from 'firebase/firestore';
 import {db,auth} from '../firebaseConnection/connection'
 import { deleteDoc,doc } from 'firebase/firestore';
+import { saveAs } from 'file-saver';
+import { JsonToExcel } from "react-json-to-excel";
 
 
 const Table = ({search}) => {
@@ -57,9 +59,13 @@ const handleEdit = async(id) => {
     setIsAddBox(true)
 }
 
-useEffect(()=>{
+// useEffect(()=>{
 
-},[userList])
+// },[userList])
+
+const handleDownload = () => {
+
+}
 
 
 
@@ -67,12 +73,12 @@ useEffect(()=>{
     
   return (
      
-    <section className='mt-8 p-2 md:p-8 rounded-md bg-[#1d1d1d] thinShadow text-[12px] h-[450px] overflow-y-auto'>
+    <section className='mt-4 rounded-md bg-[#1d1d1d] thinShadow text-[12px] h-[450px] overflow-y-auto'>
    
        
             <div className='table-container h-full'>
-               
-                <div className={`table-head grid grid-cols-5 md:grid-cols-7 bg-[#2b2b2b] rounded-md text-white ${isAddBox ? "" : "sticky top-0"}`}>
+               <div className={`${isAddBox ? "" : "sticky top-0"} p-2 md:p-4  z-10 bg-[#1d1d1d]`}>
+               <div className={`table-head grid grid-cols-5 md:grid-cols-7 bg-[#2b2b2b] rounded-md text-white ${isAddBox ? "" : "sticky top-0"}`}>
                 <p className='px-6 py-3'>Name</p>
                 <p className='px-6 py-3'>Transaction Type</p>
                 <p className='px-6 py-3 hidden md:block'>Taken Date</p>
@@ -81,8 +87,10 @@ useEffect(()=>{
                 <p className='px-6 py-3 hidden md:block'>Status</p>
                 <p className='px-6 py-3'>Action</p>
                 </div>
+               </div>
+                
 
-                <div className="table-body">
+                <div className="table-body px-2 md:px-4">
 
                 {
                 isLoading ? <p className='p-2 text-md text-white'>fetching data...</p> : (

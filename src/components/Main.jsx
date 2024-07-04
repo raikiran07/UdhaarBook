@@ -10,6 +10,10 @@ import { FaArrowDown } from "react-icons/fa6";
 import { FaArrowUp } from "react-icons/fa6";
 import { doc,collection,getDoc,getDocs } from 'firebase/firestore';
 import { db } from '../firebaseConnection/connection';
+import { saveAs } from 'file-saver';
+import { exportToExcel } from 'react-json-to-excel';
+import { toast } from 'react-toastify';
+
 
 
 const Main = () => {
@@ -93,6 +97,18 @@ const Main = () => {
 
     },[])
 
+    // download table in excel format
+    const handleDownload = () => {
+        if(userList.length > 0){
+            const data = userList.map(({id,...rest})=>rest);
+            exportToExcel(data,"udhaarlist");
+        }
+        else{
+            toast.info("Nothing to export!");
+        }
+        
+    }
+
 
 
   return (
@@ -146,7 +162,11 @@ const Main = () => {
             </div>
 
            
-               
+               <div className='text-right'>
+                <button className='text-white bg-blue-800 px-2 py-1 cursor-pointer rounded-md mt-4'
+                onClick={handleDownload}
+                >download excel</button>
+               </div>
 
                 {/* list */}
                 <Table search={search} />

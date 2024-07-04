@@ -44,7 +44,7 @@ const handleDelete = async (id) => {
  
   
   return (
-    <section className='mt-8 p-8 rounded-md bg-[#1d1d1d] thinShadow text-sm h-[450px] overflow-y-auto'>
+    <section className='mt-4 p-8 rounded-md bg-[#1d1d1d] thinShadow text-sm h-[450px] overflow-y-auto'>
    
        
     <div className='table-container h-full'>
