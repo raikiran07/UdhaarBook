@@ -134,15 +134,33 @@ const Register = () => {
 
 
   return (
+    <div className='text-xs md:text-base'>
+    <nav className='px-4 py-3 flex items-center justify-between md:px-16 md:py-8 bg-[#0f0f0f] fixed w-full top-0 left-0'>
+      <div className='relative'>
+       <h2 className='text-[1.3rem] md:text-[2rem] text-[#ffbd59] font-consert'>udhaarbook.</h2>
+      </div>
+      <div className='flex items-center justify-center gap-2 md:gap-4'>
+      <button className=' px-2 py-1 text-white rounded-md bg-[#0f0f0f] thinShadow'
+      onClick={()=>navigate(-1)}
+      >
+          Back
+        </button>
+        <Link to="/">
+        <button className='bg-orange-600 px-2 py-1 text-white rounded-md'>Landing</button>
+        </Link>
+        
+        
+      </div>
+      </nav>
+    
     <div className='w-full h-[100vh] flex items-center justify-center bg-[#0f0f0f]'>
-        <form onSubmit={handleRegisterSubmit} className=' bg-[#141414] px-16 py-8 rounded-md thinShadow'>
-        <h3 className='text-[1.5rem] text-white text-center'>New User</h3>
+        <form onSubmit={handleRegisterSubmit} className=' bg-[#141414] px-16 py-8 rounded-md thinShadow mt-[2rem]'>
+        <h3 className='text-[1.5rem] text-white text-center mb-6'>New User</h3>
         <div className='relative max-w-fit mx-auto'>
 
         
             <div className='flex items-center justify-center text-white p-1 w-12 h-12 mx-auto rounded-full bg-gray-100 cursor-pointer overflow-hidden'>
-            {/* <CgProfile />
-             */}
+        
              <input type="file" 
              id="file"
              ref={imgRef} 
@@ -195,7 +213,7 @@ const Register = () => {
                 />
             </div>
             <div className='mt-8 mb-4'>
-              <button type='submit' className='w-full py-2 font-semibold tracking-wider rounded-md text-white bg-[#282928]'>Register</button>
+              <button type='submit' className='w-full py-2 font-semibold tracking-wider rounded-md text-white bg-blue-600'>Register</button>
             </div>
 
             <p>
@@ -218,6 +236,7 @@ const Register = () => {
             pauseOnHover
             theme="light"
             />
+    </div>
     </div>
   )
 }

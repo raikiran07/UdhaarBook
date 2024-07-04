@@ -127,8 +127,26 @@ const Login = () => {
 
 
   return (
+    <div className='text-xs md:text-base'>
+    <nav className='px-4 py-3 flex items-center justify-between md:px-16 md:py-8 bg-[#0f0f0f] fixed top-0 left-0 w-full  z-50'>
+      <div className='relative'>
+       <h2 className='text-[1.3rem] md:text-[2rem] text-[#ffbd59] font-consert'>udhaarbook.</h2>
+      </div>
+      <div className='flex items-center justify-center gap-2 md:gap-4'>
+      <button className=' px-2 py-1 text-white rounded-md bg-[#0f0f0f] thinShadow'
+      onClick={()=>navigate(-1)}
+      >
+          Back
+        </button>
+        <Link to="/">
+        <button className='bg-orange-600 px-2 py-1 text-white rounded-md'>Landing</button>
+        </Link>
+        
+        
+      </div>
+      </nav>
     <div className='w-full h-[100vh] flex flex-col items-center justify-center bg-[#0f0f0f] gap-4'>
-        <form onSubmit={handleLoginSubmit} className=' bg-[#141414]  px-16 py-8 rounded-md thinShadow '>
+        <form onSubmit={handleLoginSubmit} className=' bg-[#141414]  px-16 py-8 rounded-md thinShadow mt-[-2rem]'>
             <div className='text-5xl flex items-center justify-center text-white'>
             <CgProfile />
             </div>
@@ -150,7 +168,7 @@ const Login = () => {
                 />
             </div>
             <div className='mt-8 mb-4'>
-              <button type='submit' className=' w-full py-2 font-semibold tracking-wider rounded-md text-white bg-[#282928]'>Login</button>
+              <button type='submit' className=' w-full py-2 font-semibold tracking-wider rounded-md text-white bg-blue-600'>Login</button>
             </div>
             <div className='text-[0.8rem] flex items-end justify-between'>
               <Link to="/forgotpassword">
@@ -178,6 +196,7 @@ const Login = () => {
        
        
        
+    </div>
     </div>
   )
 }
