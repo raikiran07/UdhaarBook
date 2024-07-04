@@ -16,7 +16,7 @@ const handleNewPassword = (e) => {
     setUserEmail("")
     toast.info("reset link sent to your email")
     }).catch(err=>{
-        console.log(err)
+        toast.error(err?.message)
     })
 
 }

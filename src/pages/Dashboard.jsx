@@ -13,10 +13,10 @@ import MobileNavbar from '../components/MobileNavbar';
 const Dashboard = () => {
 const navigate =  useNavigate()
 const {setNavActive,navActive,isAddBox,isSignIn} = useContext(userListContext)
-console.log(navActive)
+
 const location = useLocation()
 const url = location.pathname.slice(1)
-console.log(isSignIn)
+
 
   useEffect(()=>{
    

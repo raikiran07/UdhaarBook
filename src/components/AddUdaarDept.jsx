@@ -6,6 +6,7 @@ import { collection } from 'firebase/firestore'
 import {db,auth} from '../firebaseConnection/connection'
 import { getDoc,updateDoc,addDoc,getDocs,doc,setDoc} from 'firebase/firestore'
 import { update } from 'firebase/database'
+import { toast } from 'react-toastify'
 
 
 
@@ -22,7 +23,7 @@ const AddUdaarDept = ({fetchData}) => {
         name:"",
         transaction_type:"udhaar",
         taken_date:"",
-        amount:null,
+        amount:0,
         return_date:"",
         status:"Pending"
     })
@@ -33,8 +34,7 @@ const AddUdaarDept = ({fetchData}) => {
     if(editId){
         const [editData] = userList.filter(user=>user.id==editId);
         const takenDate = convertDate(editData.taken_date)
-        console.log(takenDate)
-        console.log(editData)
+       
         setUserDetails({
             ...editData,
             taken_date:takenDate
@@ -101,7 +101,7 @@ const handleAddDetails = async (e) => {
         setIsAddBox(false)
        
       } catch (error) {
-        console.error('Error adding document: ', error);
+        toast.error("something went wrong")
       }
     
    

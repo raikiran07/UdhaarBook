@@ -14,7 +14,7 @@ const MobileNavbar = () => {
     const {currentUser} = useContext(userListContext)
     const [isClose,setIsClose] = useState(false);
     const [isOpen, setOpen] = useState(false)
-    console.log(currentUser)
+   
     const navigate = useNavigate()
 
     const handleLogout = () => {
@@ -25,11 +25,10 @@ const MobileNavbar = () => {
         }
     }
 
-    let navToggle = document.querySelector('.nav-toggle')
-    let bars = document.querySelectorAll('.bar')
+
    
 
-    console.log(navToggle)
+    
 
    
 

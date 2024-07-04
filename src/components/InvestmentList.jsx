@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { MdDelete } from "react-icons/md";
 import { deleteDoc,collection,doc } from 'firebase/firestore';
 import { db,auth } from '../firebaseConnection/connection';
+import { toast } from 'react-toastify';
 
 const InvestmentList = ({investmentList,setInvestmentList,isLoading,setIsLoading,search,fetchInvestmentList}) => {
-console.log(isLoading)
-console.log(investmentList)
+
     
    const convertDateIntoReadable = (dateString) => {
-    console.log(dateString)
+  
     // Parse pe date string into a Date object
             const date = new Date(dateString);
 
@@ -17,7 +17,7 @@ console.log(investmentList)
 
             // Format pe date
             const formattedDate = date.toLocaleDateString('en-US', options);
-            console.log(formattedDate)
+            
             return formattedDate;
     }
 
@@ -36,7 +36,7 @@ const handleDelete = async (id) => {
         }
         
       } catch (error) {
-          console.log("error in deleting item" + error)
+          toast.error("something went wrong")
       }
 }
 

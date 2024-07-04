@@ -34,7 +34,7 @@ const Login = () => {
             // Immediately set the user sign-in state and store UID
             setIsSignIn(true);
             const user = auth.currentUser;
-            console.log(user)
+            
             if (user) {
                 localStorage.setItem("uid", user.uid);
             }
@@ -67,7 +67,7 @@ const Login = () => {
 
     // signIn with google
     const SignUpWithGoogle = async () => {
-      console.log("singin with google")
+     
 
       try {
           const provider = new GoogleAuthProvider();
@@ -82,11 +82,11 @@ const Login = () => {
           }
           const token = credential.accessToken;
           const user = result.user;
-          console.log(user)
+          
           const {email,uid,photoURL} = user;
-          console.log(email,uid);
+          
           const userName = user.displayName.split(' ');
-          console.log(userName)
+          
 
           await setDoc(doc(db,"Users",user.uid),{
             email:email,
@@ -118,7 +118,7 @@ const Login = () => {
           const errorCode = error.code;
           const errorMessage = error.message;
           // const email = error.customData.email;
-          console.log(error)
+         
           const credential = GoogleAuthProvider.credentialFromError(error);
   
       }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { db,auth } from '../firebaseConnection/connection';
 import { collection,addDoc } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 
 const AddInvestment = ({setAddInvestment,setInvestmentList,fetchInvestmentList}) => {
     const [investmentDetails,setInvestmentDetails] = useState({
@@ -35,7 +36,7 @@ const handleAddInvestment = async (e) => {
         setAddInvestment(false)
         fetchInvestmentList()
     } catch (error) {
-        console.log(error.message)
+       toast.error("something went wrong")
     }
 }
 

@@ -21,7 +21,7 @@ const Main = () => {
   
     const {userList,setUserList,isAddBox,setIsAddBox,isLoading,setIsLoading,setUser} = useContext(userListContext)
     const [search,setSearch] = useState("")
-    console.log(userList)
+    
     
     const totalUdhaarList = userList?.filter(user=>user.transaction_type=="udhaar")
     const totalUdhaar = totalUdhaarList?.reduce((total,user)=>Number(total) + Number(user?.amount), 0);
@@ -39,7 +39,7 @@ const Main = () => {
                const listRef = collection(db,"Users",userId,"list");
 
                const docSnap = await getDoc(docRef);
-               console.log(docSnap.data())
+              
                if(docSnap.exists()){
                    
                    const {email,firstName,lastName,profileUrl} = docSnap.data();
@@ -53,7 +53,7 @@ const Main = () => {
                
                }
                else{
-                   console.log("something went wrong...")
+                   toast.error("something went wrong")
                }
 
                const snapshot = await getDocs(listRef);
@@ -84,7 +84,7 @@ const Main = () => {
 
         } catch (error) {
             setIsLoading(false)
-            console.log(error.message)
+            toast.error(error.message)
         }
     }
 

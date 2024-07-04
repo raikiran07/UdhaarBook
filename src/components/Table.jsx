@@ -16,11 +16,11 @@ const Table = ({search}) => {
 
    const {userList,setUserList,setIsAddBox,isLoading,setEditId,setIsLoading,isAddBox} = useContext(userListContext)
 
-   console.log(userList)
+
    
 
    const convertDateIntoReadable = (dateString) => {
-    console.log(dateString)
+   
     // Parse pe date string into a Date object
             const date = new Date(dateString);
 
@@ -29,14 +29,14 @@ const Table = ({search}) => {
 
             // Format pe date
             const formattedDate = date.toLocaleDateString('en-US', options);
-            console.log(formattedDate)
+            // console.log(formattedDate)
             return formattedDate;
 }
 
 
 // handle delete functionality
 const handleDelete = async(id) => {
-    console.log(id)
+
     try {
       const isConfirm = confirm("Do you want to delete?");
       if(isConfirm){
@@ -47,25 +47,20 @@ const handleDelete = async(id) => {
       }
       
     } catch (error) {
-        console.log("error in deleting item" + error)
+      toast.error(error.message);
     }
     
 }
 
 // handle edit functionality 
 const handleEdit = async(id) => {
-    console.log(id);
+   
     setEditId(id);
     setIsAddBox(true)
 }
 
-// useEffect(()=>{
 
-// },[userList])
 
-const handleDownload = () => {
-
-}
 
 
 

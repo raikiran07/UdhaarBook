@@ -14,8 +14,7 @@ const Sidebar = () => {
   const {currentUser,isLoading,setUser,setUserList,setIsSignIn,navActive,setNavActive} = useContext(userListContext)
   const navigate = new useNavigate()
 
-  console.log(navActive)
-  console.log(currentUser)
+ 
   
 
   const handleLogout = async () => {
@@ -32,7 +31,7 @@ const Sidebar = () => {
       }
       
     } catch (error) {
-      console.log(error.message)
+      toast.error(error.message)
     }
   }
   

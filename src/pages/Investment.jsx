@@ -26,7 +26,7 @@ const location = useLocation()
 const url = location.pathname.slice(1)
 
 
-console.log(isSignIn)
+
 const [investmentList,setInvestmentList] = useState([])
 const [isLoading,setIsLoading] = useState(false)
 const [total,setTotal] = useState(0)
@@ -66,14 +66,13 @@ useEffect(()=>{
         navigate("/login")
        }
     } catch (error) {
-      console.log(error.message)
+      toast.error(error?.message)
     }
   }
 
    // download table in excel format
    const handleDownload = () => {
-    console.log("hello")
-    console.log(investmentList)
+   
     if(investmentList.length > 0){
         const data = investmentList.map(({id,...rest})=>rest);
         exportToExcel(data,"investmentlist");

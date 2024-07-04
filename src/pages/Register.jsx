@@ -64,12 +64,12 @@ const Register = () => {
                     },
                     (error) => {
                       setError(error);
-                      console.error(error);
+                     
                     },
                     async () => {
                       downloadUrl = await getDownloadURL(uploadTask.snapshot.ref);
                       setImageUrl(downloadUrl)
-                      console.log(downloadUrl)
+                      
                       
                       
             
@@ -78,7 +78,7 @@ const Register = () => {
                     //   await addDoc(imageRef, { url: downloadUrl });
             
                       setIsUploading(false);
-                      console.log('Image uploaded successfully!');
+                      
                       if(user){
                         await setDoc(doc(db,"Users",user.uid),{
                             email:user.email,
@@ -114,7 +114,7 @@ const Register = () => {
            
            
         } catch (error) {
-            console.log(error.message)
+            toast.error(error?.message)
         }
        
         
