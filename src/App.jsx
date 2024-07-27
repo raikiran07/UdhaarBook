@@ -1,12 +1,7 @@
-import { useContext, useEffect, useState } from 'react'
-import Sidebar from './components/Sidebar'
-import Main from './components/Main'
+import { useContext } from 'react'
 
-import { createBrowserRouter,Outlet,RouterProvider } from 'react-router-dom'
+import { createBrowserRouter,Outlet,RouterProvider,useNavigate } from 'react-router-dom'
 import { userListContext } from './context/ContextProvider'
-import { auth,db } from './firebaseConnection/connection'
-import { onAuthStateChanged } from 'firebase/auth'
-import { doc,collection,getDoc,getDocs } from 'firebase/firestore'
 import './App.css'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -16,6 +11,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import Investment from './pages/Investment'
 import Analyse from './pages/Analyse'
 import NotFound from './pages/NotFound'
+import NewFeature from './pages/NewFeature'
 
 
 
@@ -26,6 +22,7 @@ import NotFound from './pages/NotFound'
 function App() {
 
   const {setUserList,setUser,setIsLoading} = useContext(userListContext)
+
 
   const router = createBrowserRouter([
     {
@@ -56,6 +53,10 @@ function App() {
     {
       path:"/forgotpassword",
       element:<ForgotPassword />
+    },
+    {
+      path:"/new",
+      element:<NewFeature/>
     },
     {
       path:"/*",

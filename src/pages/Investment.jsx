@@ -52,6 +52,7 @@ useEffect(()=>{
          }
          return docData;
         })
+        // console.log(list)
 
         const totalSum = list.reduce((sum,item)=>sum + Number(item.amount),0);
         setTotal(totalSum)
@@ -66,6 +67,7 @@ useEffect(()=>{
         navigate("/login")
        }
     } catch (error) {
+      
       toast.error(error?.message)
     }
   }
@@ -124,6 +126,7 @@ useEffect(()=>{
             isLoading={isLoading}
             setIsLoading = {setIsLoading}
             fetchInvestmentList={fetchInvestmentList}
+            addInvestment={addInvestment}
             />
             
 

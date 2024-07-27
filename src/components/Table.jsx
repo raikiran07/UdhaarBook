@@ -1,15 +1,13 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { RiEdit2Fill } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
-import {list} from '../data/data'
 import { userListContext } from '../context/ContextProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { collection } from 'firebase/firestore';
 import {db,auth} from '../firebaseConnection/connection'
 import { deleteDoc,doc } from 'firebase/firestore';
-import { saveAs } from 'file-saver';
-import { JsonToExcel } from "react-json-to-excel";
+
 
 
 const Table = ({search}) => {

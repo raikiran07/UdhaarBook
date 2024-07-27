@@ -1,9 +1,22 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 // import { TbCircleNumber1Filled } from "react-icons/tb";
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 
 
 const LandingPage = () => {
+const navigate = useNavigate()
+
+  useEffect(()=>{
+    const uid = localStorage.getItem("uid")
+    if(uid){
+      navigate("/dashboard")
+    }
+  },[])
+
+
+
+
+
   return (
     <div className='landing w-full min-h-[100vh] relative text-xs md:text-base bg-black'>
       <nav className='px-4 py-3 flex items-center justify-between md:px-16 md:py-8 fixed top-0 left-0 w-full bg-black z-50'>

@@ -4,7 +4,7 @@ import { deleteDoc,collection,doc } from 'firebase/firestore';
 import { db,auth } from '../firebaseConnection/connection';
 import { toast } from 'react-toastify';
 
-const InvestmentList = ({investmentList,setInvestmentList,isLoading,setIsLoading,search,fetchInvestmentList}) => {
+const InvestmentList = ({investmentList,setInvestmentList,isLoading,setIsLoading,search,fetchInvestmentList,addInvestment}) => {
 
     
    const convertDateIntoReadable = (dateString) => {
@@ -44,20 +44,23 @@ const handleDelete = async (id) => {
  
   
   return (
-    <section className='mt-4 p-8 rounded-md bg-[#1d1d1d] thinShadow text-sm h-[450px] overflow-y-auto'>
+    <section className='mt-4  rounded-md bg-[#1d1d1d] thinShadow text-[12px] h-[450px] overflow-y-auto'>
    
        
     <div className='table-container h-full'>
        
-        <div className={`table-head grid grid-cols-5 bg-[#2b2b2b] rounded-md text-white place-items-center md:place-items-start`}>
+    <div className={`${addInvestment ? "" : "sticky top-0"} p-2 md:p-4  z-10 bg-[#1d1d1d]`}>
+    <div className={`table-head grid grid-cols-5 bg-[#2b2b2b] rounded-md text-white place-items-center md:place-items-start`}>
         <p className='px-6 py-3'>Name</p>
         <p className='px-6 py-3'>Type</p>
         <p className='px-6 py-3'>Date</p>
         <p className='px-6 py-3'>Amount</p>
         <p className='px-6 py-3'>Action</p>
         </div>
+    </div>
+        
 
-        <div className="table-body">
+        <div className="table-body px-2 md:px-4">
 
         {
         isLoading ? <p className='p-2 text-md text-white'>fetching data...</p> : (

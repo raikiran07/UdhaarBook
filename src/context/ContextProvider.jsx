@@ -31,13 +31,6 @@ const ContextProvider = ({children}) => {
   const [navActive,setNavActive] = useState("dashboard")
 
 
-
- 
-
-
-
-
-
  
   return (
    <userListContext.Provider value={{userList,setUserList,isAddBox,setIsAddBox,userCollectionRef,currentUser,setUser,collection,isLoading,setIsLoading,editId,setEditId,isSignIn,setIsSignIn,navActive,setNavActive}}>

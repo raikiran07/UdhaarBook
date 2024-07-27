@@ -21,6 +21,7 @@ const Main = () => {
   
     const {userList,setUserList,isAddBox,setIsAddBox,isLoading,setIsLoading,setUser} = useContext(userListContext)
     const [search,setSearch] = useState("")
+    const [searchData,setSearchData] = useState([])
     
     
     const totalUdhaarList = userList?.filter(user=>user.transaction_type=="udhaar")
@@ -89,7 +90,7 @@ const Main = () => {
     }
 
     useEffect(()=>{
-
+        setSearchData(userList)
         fetchData()
         return ()=>{
 
@@ -108,6 +109,16 @@ const Main = () => {
         }
         
     }
+
+
+    // handle search functionality
+    // const handleSearch = (searchValue) => {
+    //     setSearch(searchValue);
+    //     const searchResult = userList.filter(user=>user?.name?.toLowerCase()?.includes(search) || user?.transaction_type?.toLowerCase()?.includes(search) || user?.status?.toLowerCase()?.includes(search))
+    //     setSearchData(searchResult)
+    // }
+
+   
 
 
 
