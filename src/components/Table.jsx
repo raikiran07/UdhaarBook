@@ -19,16 +19,23 @@ const Table = ({search}) => {
 
    const convertDateIntoReadable = (dateString) => {
    
-    // Parse pe date string into a Date object
-            const date = new Date(dateString);
+    if(dateString){
+      // Parse pe date string into a Date object
+      const date = new Date(dateString);
 
-            // Define options for toLocaleDateString to get pe desired format
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      // Define options for toLocaleDateString to get pe desired format
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
-            // Format pe date
-            const formattedDate = date.toLocaleDateString('en-US', options);
-            // console.log(formattedDate)
-            return formattedDate;
+      // Format pe date
+      const formattedDate = date.toLocaleDateString('en-US', options);
+     
+      // console.log(formattedDate)
+      return formattedDate;
+    }
+
+    return "Not Mentioned"
+   
+    
 }
 
 
@@ -107,7 +114,7 @@ const handleEdit = async(id) => {
                                     <p  className="px-6 py-4 font-medium text-white">{`${convertDateIntoReadable(user.taken_date)}`}</p>
                                     <p  className={`px-6 py-4 font-medium  ${user.transaction_type=="udhaar" ? "text-[#68bc44]" : "text-[#f5072b]"}`}>{user.amount}</p>
                                     <p  className="px-6 py-4 font-medium text-white hidden md:block">{
-                                        `${convertDateIntoReadable(user.return_date) ? "NA" : convertDateIntoReadable(user.return_date) }`
+                                        `${convertDateIntoReadable(user.return_date) ? convertDateIntoReadable(user.return_date) : "Not Mentioned" }`
                                     }</p>
                                     <p  className="px-6 py-4 font-medium text-white hidden md:block">{user.status}</p>
                                     <p  className="px-6 py-4   text-white flex flex-col  md:flex-row items-center gap-2 md:gap-4">

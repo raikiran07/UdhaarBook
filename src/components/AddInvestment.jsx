@@ -32,7 +32,7 @@ const handleAddInvestment = async (e) => {
         const listRef = collection(db,"Users",auth.currentUser.uid,"investments");
         await addDoc(listRef, investmentDetails);
         setInvestmentList(prev=>[...prev,investmentDetails])
-        alert("investment added successfully")
+        toast.success("investment added successfully")
         setAddInvestment(false)
         fetchInvestmentList()
     } catch (error) {
