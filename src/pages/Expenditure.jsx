@@ -203,6 +203,27 @@ const handleReset = async () => {
   }
 }
 
+
+// current Month
+const convertDateIntoReadable = () => {
+   
+  
+    // Parse pe date string into a Date object
+    const date = new Date();
+
+    // Define options for toLocaleDateString to get pe desired format
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+
+    // Format pe date
+    const formattedDate = date.toLocaleDateString('en-GB', options);
+   
+    // console.log(formattedDate)
+    return formattedDate;
+ 
+ 
+  
+}
+
   
 
   return (
@@ -213,7 +234,7 @@ const handleReset = async () => {
     <div className={`flex max-h-screen overflow-hidden `}>
     <Sidebar />
     <aside className={`min-w-[85%] relative px-8 text-white overflow-y-auto py-4 text-xs md:text-base`}>
-        <h2 className='text-xl mb-4'>Track your expenditures</h2>
+        <h2 className='text-xl mb-4'>Track your expenditures - <span className='bg-amber-500 p-1 rounded-md'>{convertDateIntoReadable()}</span></h2>
         {
           showBoxes && (
             <div className='total-amount flex flex-col  md:items-center md:flex-row text-4xl gap-4 my-8 '>
