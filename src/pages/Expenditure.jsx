@@ -25,6 +25,8 @@ const [totalExpenditure,setTotalExpenditure] = useState(0)
 
 const location = useLocation()
 const url = location.pathname.slice(1)
+const expenditureRef = collection(db,"Users",localStorage.getItem("uid"),"Expenditures")
+const moneyRef = collection(db,"Users",localStorage.getItem("uid"),"Money");
 
 useEffect(()=>{
    
@@ -42,8 +44,8 @@ useEffect(()=>{
     try {
       if(salary){
         setRemaining(salary)
-        const listRef = collection(db,"Users",localStorage.getItem("uid"),"Money");
-        await addDoc(listRef,{"salary":salary,
+        
+        await addDoc(moneyRef,{"salary":salary,
           "remaining":salary
         })
         
@@ -82,11 +84,11 @@ useEffect(()=>{
   await updateDoc(docRef,{"remaining":remainingSal})
   setRemaining(remainingSal)
 
-   const listRef = collection(db,"Users",localStorage.getItem("uid"),"Expenditures")
+  //  const listRef = collection(db,"Users",localStorage.getItem("uid"),"Expenditures")
   
    
    deductions.forEach(async item=>{
-    await addDoc(listRef,item);
+    await addDoc(expenditureRef,item);
    })
 
    fetchData()
@@ -125,8 +127,8 @@ console.log("hello")
  const fetchData = async () => {
   if(isSignIn){
     try {
-      const deductionRef = collection(db,"Users",localStorage.getItem("uid"),"Expenditures")
-      const deductionQuery = query(deductionRef,orderBy('timestamp','desc'))
+      
+      const deductionQuery = query(expenditureRef,orderBy('timestamp','desc'))
       const moneyRef = collection(db,"Users",localStorage.getItem("uid"),"Money")
       const moneyData = await getDocs(moneyRef)
   
@@ -191,6 +193,16 @@ console.log("hello")
   }
  }
 
+//  handle reset function
+const handleReset = async () => {
+  try {
+
+    
+  } catch (error) {
+    
+  }
+}
+
   
 
   return (
@@ -201,7 +213,7 @@ console.log("hello")
     <div className={`flex max-h-screen overflow-hidden `}>
     <Sidebar />
     <aside className={`min-w-[85%] relative px-8 text-white overflow-y-auto py-4 text-xs md:text-base`}>
-        <h2 className='text-xl mb-4'>Montly expense and deductions</h2>
+        <h2 className='text-xl mb-4'>Track your expenditures</h2>
         {
           showBoxes && (
             <div className='total-amount flex flex-col  md:items-center md:flex-row text-4xl gap-4 my-8 '>
@@ -278,9 +290,16 @@ console.log("hello")
        }
 
       <div className="deductions flex-1">
+        <div className="btn-container flex items-center gap-4">
+        
+        <button className='reset-btn border p-2 tracking-wider rounded-md bg-[#de2e2e] text-white hover:bg-[#ec4e4e] hover:text-white'
+        onClick={handleReset}
+        >Reset</button>
         <button className="addDeduction border p-2 tracking-wider rounded-md bg-[#242424] text-white hover:bg-[#0f0f0f] hover:text-white" onClick={handleAddDeductions}>
           Deduction
         </button>
+        </div>
+       
 
         {
           deductions.map(item=>{
