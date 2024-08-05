@@ -100,11 +100,14 @@ useEffect(()=>{
  }
 
 
+//  remove deduction input field
  const handleRemove = (id) => {
   const filterList = deductions.filter(item=>item.uniqueId != id);
   setDeductions(filterList)
  }
 
+
+//  useEffect hook
  useEffect(()=>{
 console.log("hello")
   fetchData();
@@ -116,6 +119,8 @@ console.log("hello")
 
 
  },[])
+
+//  fetchData function to fetch initial data from the database when component loads
 
  const fetchData = async () => {
   if(isSignIn){
@@ -153,6 +158,7 @@ console.log("hello")
         setTotalExpenditure(tRemaining)
         setExpenditureList(list)
       }
+      
      
       
     } catch (error) {
@@ -166,6 +172,8 @@ console.log("hello")
   
  }
 
+
+//  Delete function for expenditure
  const handleDelete = async (id,cost) => {
   try {
     const docRef = doc(db,"Users",localStorage.getItem("uid"),"Expenditures",id);
@@ -173,7 +181,11 @@ console.log("hello")
     alert("document deleted successfully")
     const remainingRef = doc(db,"Users",localStorage.getItem("uid"),"Money",moneyId)
     await updateDoc(remainingRef,{"remaining":remaining+Number(cost)})
-    fetchData();
+    setRemaining(prev=>prev+Number(cost))
+    setTotalExpenditure(prev=>prev-Number(cost))
+    const updatedList = expenditureList.filter(item=>item.id !== id);
+    console.log(updatedList)
+    setExpenditureList(updatedList)
   } catch (error) {
     console.log(error)
   }
