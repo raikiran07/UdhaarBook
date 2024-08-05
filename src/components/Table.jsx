@@ -112,7 +112,7 @@ const handleEdit = async(id) => {
                                     <p  className="px-6 py-4 font-medium text-white">{user.name}</p>
                                     <p  className="px-6 py-4 font-medium text-white">{user.transaction_type}</p>
                                     <p  className="px-6 py-4 font-medium text-white">{`${convertDateIntoReadable(user.taken_date)}`}</p>
-                                    <p  className={`px-6 py-4 font-medium  ${user.transaction_type=="udhaar" ? "text-[#68bc44]" : "text-[#f5072b]"}`}>{user.amount}</p>
+                                    <p  className={`px-6 py-4 font-medium  ${user.transaction_type=="udhaar" ? "text-[#68bc44]" : "text-[#f5072b]"}`}>Rs {user.amount}</p>
                                     <p  className="px-6 py-4 font-medium text-white hidden md:block">{
                                         `${convertDateIntoReadable(user.return_date) ? convertDateIntoReadable(user.return_date) : "Not Mentioned" }`
                                     }</p>

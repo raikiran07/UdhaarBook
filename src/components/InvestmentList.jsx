@@ -82,7 +82,7 @@ const handleDelete = async (id) => {
                             <p  className="px-6 py-4 font-medium text-white">{investment.name}</p>
                             <p  className="px-6 py-4 font-medium text-white">{investment.investment_type}</p>
                             <p  className="px-6 py-4 font-medium text-white">{`${convertDateIntoReadable(investment.date)}`}</p>
-                            <p  className={`px-6 py-4 font-medium`}>{investment.amount}</p>
+                            <p  className={`px-6 py-4 font-medium`}>Rs {investment.amount}</p>
                            
                             <p  className="px-6 py-4 text-white flex items-center gap-4">
                               

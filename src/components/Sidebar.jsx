@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoLogOut } from "react-icons/io5";
 import { useContext } from 'react';
 import { userListContext } from '../context/ContextProvider';
@@ -34,6 +34,10 @@ const Sidebar = () => {
       toast.error(error.message)
     }
   }
+
+  useEffect(()=>{
+    console.log(currentUser)
+  },[])
   
 
 
@@ -61,20 +65,20 @@ const Sidebar = () => {
                 <li className=''>
                 <button className={`w-[60%] flex items-center justify-start gap-3 p-2 mx-auto rounded-md ${navActive=="dashboard" ? "thinShadow" : ""}`}>
                 <Link to="/dashboard">
-                udhaar
+                Udhaar
                 </Link>
                 </button>
 
                 </li>
                 <li className=''>
                 <button className={`w-[60%] flex items-center justify-start gap-3 p-2 mx-auto rounded-md ${navActive=="investment" ? "thinShadow" : ""}`}>
-               <Link to="/investment">investment</Link>
+               <Link to="/investment">Investment</Link>
                 </button>
 
                 </li>
                 <li className=''>
-                <button className={`w-[60%] flex items-center justify-start gap-3 p-2 mx-auto rounded-md ${navActive=="analysis" ? "thinShadow" : ""}`}>
-               <Link to="/analysis">analysis</Link>
+                <button className={`w-[60%] flex items-center justify-start gap-3 p-2 mx-auto rounded-md ${navActive=="expenditure" ? "thinShadow" : ""}`}>
+               <Link to="/expenditure">Expenditure</Link>
                 </button>
 
                 </li>

@@ -118,14 +118,14 @@ const MobileNavbar = () => {
                     className="w-full p-[0.08rem] rounded-xl bg-gradient-to-tr from-neutral-800 via-neutral-950 to-neutral-700 text-white"
                   >
                     <Link
-                     to="/analysis"
+                     to="/expenditure"
                       onClick={() => setOpen((prev) => !prev)}
                       className={
                         "flex items-center justify-between w-full p-5 rounded-xl bg-neutral-950"
                       }
                      
                     >
-                     Analysis
+                     Expenditure
                      
                     </Link>
                   </motion.li>
