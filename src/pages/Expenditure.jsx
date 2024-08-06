@@ -311,7 +311,9 @@ const convertDateIntoReadable = () => {
        }
 
       <div className="deductions flex-1">
-        <div className="btn-container flex items-center gap-4">
+        {
+          showBoxes && (
+            <div className="btn-container flex items-center gap-4">
         
         <button className='reset-btn border p-2 tracking-wider rounded-md bg-[#de2e2e] text-white hover:bg-[#ec4e4e] hover:text-white'
         onClick={handleReset}
@@ -320,6 +322,9 @@ const convertDateIntoReadable = () => {
           Deduction
         </button>
         </div>
+          )
+        }
+        
        
 
         {
