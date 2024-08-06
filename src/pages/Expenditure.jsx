@@ -7,11 +7,14 @@ import MobileNavbar from '../components/MobileNavbar'
 import { FaIndianRupeeSign } from "react-icons/fa6";
 import AddDeduction from '../components/AddDeduction'
 import { db } from '../firebaseConnection/connection'
-import { collection,doc,getDocs,getDoc,addDoc, updateDoc,serverTimestamp,query,orderBy, deleteDoc } from 'firebase/firestore'
+import { collection,doc,getDocs,getDoc,addDoc, updateDoc,serverTimestamp,query,orderBy, deleteDoc,writeBatch } from 'firebase/firestore'
 import { MdDelete } from "react-icons/md";
+import { toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 
-const Analyse = () => {
+const Expenditure = () => {
 const navigate =  useNavigate()
 const {setNavActive,isAddBox,isSignIn} = useContext(userListContext)
 const [salary,setSalary] = useState(null)
@@ -19,7 +22,6 @@ const [remaining,setRemaining] = useState(0)
 const [showBoxes,setShowBoxes] = useState(false)
 const [deductions,setDeductions] = useState([])
 const [expenditureList,setExpenditureList] = useState([])
-const [moneyId,setMoneyId] = useState("")
 const [totalExpenditure,setTotalExpenditure] = useState(0)
 
 
@@ -45,9 +47,12 @@ useEffect(()=>{
       if(salary){
         setRemaining(salary)
         
-        await addDoc(moneyRef,{"salary":salary,
+        const data = await addDoc(moneyRef,{"salary":salary,
           "remaining":salary
         })
+      
+        localStorage.setItem("moneyId",data.id);
+
         
         setShowBoxes(true)
       }
@@ -74,13 +79,14 @@ useEffect(()=>{
  const handleSubmit = async() => {
   const totalExpenditure = deductions.reduce((sum,item)=>sum + Number(item.cost),0);
   const remainingSal = remaining - totalExpenditure;
-
+  
+  
 
 
   
   try {
-   console.log(moneyId)
-  const docRef = doc(db,"Users",localStorage.getItem("uid"),"Money",moneyId)
+   
+  const docRef = doc(db,"Users",localStorage.getItem("uid"),"Money",localStorage.getItem("moneyId"))
   await updateDoc(docRef,{"remaining":remainingSal})
   setRemaining(remainingSal)
 
@@ -93,7 +99,7 @@ useEffect(()=>{
 
    fetchData()
    setDeductions([])
-   console.log("items added successfully")
+   toast.success("item added successfully")
    
   } catch (error) {
     console.log(error)
@@ -111,7 +117,7 @@ useEffect(()=>{
 
 //  useEffect hook
  useEffect(()=>{
-console.log("hello")
+
   fetchData();
   
 
@@ -146,7 +152,7 @@ console.log("hello")
           const salaryRemaining = data[0];
           setSalary(salaryRemaining.salary)
           setRemaining(salaryRemaining.remaining)
-          setMoneyId(salaryRemaining.id)
+          localStorage.setItem("moneyId",salaryRemaining.id);
           setShowBoxes(true)
       }
       
@@ -181,13 +187,15 @@ console.log("hello")
     const docRef = doc(db,"Users",localStorage.getItem("uid"),"Expenditures",id);
     await deleteDoc(docRef);
     alert("document deleted successfully")
-    const remainingRef = doc(db,"Users",localStorage.getItem("uid"),"Money",moneyId)
+    
+    const remainingRef = doc(db,"Users",localStorage.getItem("uid"),"Money",localStorage.getItem("moneyId"))
     await updateDoc(remainingRef,{"remaining":remaining+Number(cost)})
     setRemaining(prev=>prev+Number(cost))
     setTotalExpenditure(prev=>prev-Number(cost))
     const updatedList = expenditureList.filter(item=>item.id !== id);
     console.log(updatedList)
     setExpenditureList(updatedList)
+    toast.success("item deleted successfully")
   } catch (error) {
     console.log(error)
   }
@@ -196,10 +204,21 @@ console.log("hello")
 //  handle reset function
 const handleReset = async () => {
   try {
-
+  
+    const moneyDataRef = doc(db,"Users",localStorage.getItem("uid"),"Money",localStorage.getItem("moneyId"))
+    await deleteDoc(moneyDataRef)
+    setSalary(0)
+    setRemaining(0)
+    console.log("wtf")
+    setShowBoxes(false)
+    console.log("wtf above")
+    await deleteCollection(`Users/${localStorage.getItem("uid")}/Expenditures`)
+    console.log("wtf")
+    setExpenditureList([])
+    toast.info("Data reset successful")
     
   } catch (error) {
-    
+    console.log(error)
   }
 }
 
@@ -224,12 +243,35 @@ const convertDateIntoReadable = () => {
   
 }
 
+const deleteCollection = async (collectionPath) => {
+
+
+  try {
+
+    const collectionRef = collection(db,collectionPath);
+    const querySnapshot = await getDocs(collectionRef);
+
+  const batch = writeBatch(db);
+
+  querySnapshot.forEach(doc => {
+    batch.delete(doc.ref);
+  });
+
+  await batch.commit();
+    
+  } catch (error) {
+    console.log(error)
+  }
+  
+};
+
+
+
   
 
   return (
     <>
-    <div className='relative md:hidden'>
-      </div>
+    
     <MobileNavbar />
     <div className={`flex max-h-screen overflow-hidden `}>
     <Sidebar />
@@ -350,8 +392,9 @@ const convertDateIntoReadable = () => {
        
     </aside>
     </div>
+    <ToastContainer />
     </>
   )
 }
 
-export default Analyse
+export default Expenditure

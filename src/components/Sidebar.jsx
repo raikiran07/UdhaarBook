@@ -35,9 +35,9 @@ const Sidebar = () => {
     }
   }
 
-  useEffect(()=>{
-    console.log(currentUser)
-  },[])
+  // useEffect(()=>{
+  //   console.log(currentUser)
+  // },[])
   
 
 

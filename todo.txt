@@ -22,4 +22,5 @@ add export to xl sheet [X ]
 need to build a draggable blackboard - [ ]
 analysis page will show monthly expense and how much will left in account - []
 a new page should be created for handling wishlist for user []
+fix moneyId problem [ ]
 
