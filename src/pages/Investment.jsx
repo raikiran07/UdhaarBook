@@ -27,9 +27,14 @@ const url = location.pathname.slice(1)
 
 
 
+
+
 const [investmentList,setInvestmentList] = useState([])
 const [isLoading,setIsLoading] = useState(false)
 const [total,setTotal] = useState(0)
+const [error,setError] = useState("")
+
+const userId = localStorage.getItem("uid")
 
 
 useEffect(()=>{
@@ -40,8 +45,9 @@ useEffect(()=>{
 
   const fetchInvestmentList = async () => {
     try {
-       if(isSignIn){
-        const userId = localStorage.getItem("uid")
+       if(userId){
+       
+        setIsLoading(true)
         const listRef = collection(db,"Users",userId,"investments");
 
         const investmentSnap = await getDocs(listRef);
@@ -59,7 +65,7 @@ useEffect(()=>{
         
 
         setInvestmentList(list)
-       
+        setIsLoading(false)
        
        }
        else{
@@ -67,7 +73,7 @@ useEffect(()=>{
         navigate("/login")
        }
     } catch (error) {
-      
+      setError(error?.message)
       toast.error(error?.message)
     }
   }

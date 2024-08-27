@@ -12,6 +12,7 @@ import Investment from './pages/Investment'
 import Expenditure from './pages/Expenditure'
 import NotFound from './pages/NotFound'
 import NewFeature from './pages/NewFeature'
+import Wishlist from './pages/Wishlist'
 
 
 
@@ -55,8 +56,8 @@ function App() {
       element:<ForgotPassword />
     },
     {
-      path:"/new",
-      element:<NewFeature/>
+      path:"/wishlist",
+      element:<Wishlist/>
     },
     {
       path:"/*",
