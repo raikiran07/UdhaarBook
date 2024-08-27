@@ -6,7 +6,7 @@ import { useContext } from 'react'
 import { userListContext } from '../context/ContextProvider'
 import { IoAdd } from "react-icons/io5";
 import AddInvestment from '../components/AddInvestment'
-import { getDocs,collection} from 'firebase/firestore'
+import { getDocs,collection,getDoc,doc} from 'firebase/firestore'
 import InvestmentList from '../components/InvestmentList'
 import { db } from '../firebaseConnection/connection'
 import TotalInvestment from '../components/TotalInvestment'
@@ -19,18 +19,19 @@ import { ToastContainer } from 'react-toastify'
 const Investment = () => {
 
 const navigate =  useNavigate()
-const {setNavActive,isSignIn} = useContext(userListContext)
+const {setNavActive,isSignIn,setIsLoading,currentUser,setUser} = useContext(userListContext)
 const [search,setSearch] = useState("")
 const [addInvestment,setAddInvestment] = useState(false)
 const location = useLocation()
 const url = location.pathname.slice(1)
+const [loading,setLoading] = useState(false)
 
 
 
 
 
 const [investmentList,setInvestmentList] = useState([])
-const [isLoading,setIsLoading] = useState(false)
+
 const [total,setTotal] = useState(0)
 const [error,setError] = useState("")
 
@@ -46,8 +47,27 @@ useEffect(()=>{
   const fetchInvestmentList = async () => {
     try {
        if(userId){
-       
-        setIsLoading(true)
+       setLoading(true)
+        if(!currentUser.email){
+          const docRef = doc(db,"Users",userId);
+          const docSnap = await getDoc(docRef);
+          if(docSnap.exists()){
+                     
+            const {email,firstName,lastName,profileUrl} = docSnap.data();
+            setUser({
+                email,
+                firstName,
+                lastName,
+                profileUrl:profileUrl
+            })
+  
+            setIsLoading(false);
+  
+        
+        }
+        }
+        
+        
         const listRef = collection(db,"Users",userId,"investments");
 
         const investmentSnap = await getDocs(listRef);
@@ -65,7 +85,7 @@ useEffect(()=>{
         
 
         setInvestmentList(list)
-        setIsLoading(false)
+       setLoading(false)
        
        }
        else{
@@ -91,6 +111,7 @@ useEffect(()=>{
     
 }
   
+
 
   return (
     <>
@@ -129,8 +150,8 @@ useEffect(()=>{
             <InvestmentList 
             investmentList={investmentList} 
             setInvestmentList={setInvestmentList} 
-            isLoading={isLoading}
-            setIsLoading = {setIsLoading}
+            isLoading={loading}
+            setIsLoading = {setLoading}
             fetchInvestmentList={fetchInvestmentList}
             addInvestment={addInvestment}
             />

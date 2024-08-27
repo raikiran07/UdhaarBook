@@ -16,13 +16,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Expenditure = () => {
 const navigate =  useNavigate()
-const {setNavActive,isAddBox,isSignIn} = useContext(userListContext)
+const {setNavActive,isAddBox,isSignIn,currentUser,setUser,setIsLoading} = useContext(userListContext)
 const [salary,setSalary] = useState(null)
 const [remaining,setRemaining] = useState(0)
 const [showBoxes,setShowBoxes] = useState(false)
 const [deductions,setDeductions] = useState([])
 const [expenditureList,setExpenditureList] = useState([])
 const [totalExpenditure,setTotalExpenditure] = useState(0)
+const [loading,setLoading] = useState(false)
 
 
 const location = useLocation()
@@ -30,15 +31,21 @@ const url = location.pathname.slice(1)
 const expenditureRef = collection(db,"Users",localStorage.getItem("uid"),"Expenditures")
 const moneyRef = collection(db,"Users",localStorage.getItem("uid"),"Money");
 
+const userId = localStorage.getItem("uid")
+
 useEffect(()=>{
    
     setNavActive(url)
 
-   
-
-
-    if(!localStorage.getItem("uid")){
+    if(!userId){
       navigate("/login")
+    }
+    else{
+      fetchData();
+    }
+
+    return ()=>{
+
     }
   },[])
 
@@ -86,7 +93,7 @@ useEffect(()=>{
   
   try {
    
-  const docRef = doc(db,"Users",localStorage.getItem("uid"),"Money",localStorage.getItem("moneyId"))
+  const docRef = doc(db,"Users",userId,"Money",localStorage.getItem("moneyId"))
   await updateDoc(docRef,{"remaining":remainingSal})
   setRemaining(remainingSal)
 
@@ -115,24 +122,32 @@ useEffect(()=>{
  }
 
 
-//  useEffect hook
- useEffect(()=>{
-
-  fetchData();
-  
-
-  return ()=>{
-
-  }
-
-
- },[])
 
 //  fetchData function to fetch initial data from the database when component loads
 
  const fetchData = async () => {
-  if(isSignIn){
+  if(userId){
+    setLoading(true)
     try {
+
+      if(!currentUser.email){
+        const docRef = doc(db,"Users",userId);
+        const docSnap = await getDoc(docRef);
+        if(docSnap.exists()){
+                   
+          const {email,firstName,lastName,profileUrl} = docSnap.data();
+          setUser({
+              email,
+              firstName,
+              lastName,
+              profileUrl:profileUrl
+          })
+
+          setIsLoading(false);
+
+      
+      }
+      }
       
       const deductionQuery = query(expenditureRef,orderBy('timestamp','desc'))
       const moneyRef = collection(db,"Users",localStorage.getItem("uid"),"Money")
@@ -167,6 +182,8 @@ useEffect(()=>{
         setExpenditureList(list)
       }
       
+
+      setLoading(false)
      
       
     } catch (error) {
@@ -193,7 +210,7 @@ useEffect(()=>{
     setRemaining(prev=>prev+Number(cost))
     setTotalExpenditure(prev=>prev-Number(cost))
     const updatedList = expenditureList.filter(item=>item.id !== id);
-    console.log(updatedList)
+    
     setExpenditureList(updatedList)
     toast.success("item deleted successfully")
   } catch (error) {
@@ -315,77 +332,84 @@ const deleteCollection = async (collectionPath) => {
        }
 
        {/* expenditure list */}
-
-       <div className="main flex flex-col-reverse md:flex-row md:gap-8">
-
        {
-        expenditureList.length > 0 && <div className=' max-w-[90%] md:max-w-[50%] flex-1'>
-          <div className='grid grid-cols-3 my-4'>
-            <p className='px-2 py-1 text-xl font-bold'>Item</p>
-            <p className='px-2 py-1 text-xl font-bold'>Cost</p>
+        loading ? <h2 className='mt-8'>Fetching data...</h2> : 
+        (
+
+          <div className="main flex flex-col-reverse md:flex-row md:gap-8">
+
+          {
+           expenditureList.length > 0 && <div className=' max-w-[90%] md:max-w-[50%] flex-1'>
+             <div className='grid grid-cols-3 my-4'>
+               <p className='px-2 py-1 text-xl font-bold'>Item</p>
+               <p className='px-2 py-1 text-xl font-bold'>Cost</p>
+             </div>
+             {
+               expenditureList.map(item=>{
+                 return  <li className="border-b-[1px] border-gray-600 tracking-wider  grid grid-cols-3 font-light" key={item.id}>
+                 <p  className="px-2 py-1 font-medium text-white">{item.title}</p>
+                 <p  className="px-2 py-1 font-medium text-white">Rs {item.cost}</p>
+                 <p className='px-2 py-1   text-white flex items-center justify-center'>
+                     <button className='border p-2 text-sm hover:bg-red-800'
+                     onClick={()=>handleDelete(item.id,item.cost)}
+                     >
+                     <MdDelete />
+   
+                     </button>
+                 
+                 
+                 </p>
+             </li>
+               })
+             }
+             <hr></hr>
+             {
+               totalExpenditure && <li className='grid grid-cols-3 my-4'>
+                 <p className='font-semibold px-2 py-1'>Total Expenditure</p>
+                 <p className='font-semibold px-2 py-1'>Rs {totalExpenditure}</p>
+               </li>
+             }
+           </div>
+          }
+   
+         <div className="deductions flex-1">
+           {
+             showBoxes && (
+               <div className="btn-container flex items-center gap-4">
+           
+           <button className='reset-btn border p-2 tracking-wider rounded-md bg-[#de2e2e] text-white hover:bg-[#ec4e4e] hover:text-white'
+           onClick={handleReset}
+           >Reset</button>
+           <button className="addDeduction border p-2 tracking-wider rounded-md bg-[#242424] text-white hover:bg-[#0f0f0f] hover:text-white" onClick={handleAddDeductions}>
+             Deduction
+           </button>
+           </div>
+             )
+           }
+           
+          
+   
+           {
+             deductions.map(item=>{
+               return <AddDeduction key={item.uniqueId} id={item.uniqueId} cost={item.cost} title={item.title}  onChange={handleChange} deductions={deductions} handleRemove={handleRemove} />
+             })
+           }
+           
+           {
+             deductions.length > 0 && (
+               <button className='addDeduction border p-2 tracking-wider rounded-md bg-blue-600 text-white  mt-4'
+           onClick={handleSubmit}
+           >Submit</button>
+             )
+           }
+           
+         </div>
+   
           </div>
-          {
-            expenditureList.map(item=>{
-              return  <li className="border-b-[1px] border-gray-600 tracking-wider  grid grid-cols-3 font-light" key={item.id}>
-              <p  className="px-2 py-1 font-medium text-white">{item.title}</p>
-              <p  className="px-2 py-1 font-medium text-white">Rs {item.cost}</p>
-              <p className='px-2 py-1   text-white flex items-center justify-center'>
-                  <button className='border p-2 text-sm hover:bg-red-800'
-                  onClick={()=>handleDelete(item.id,item.cost)}
-                  >
-                  <MdDelete />
 
-                  </button>
-              
-              
-              </p>
-          </li>
-            })
-          }
-          <hr></hr>
-          {
-            totalExpenditure && <li className='grid grid-cols-3 my-4'>
-              <p className='font-semibold px-2 py-1'>Total Expenditure</p>
-              <p className='font-semibold px-2 py-1'>Rs {totalExpenditure}</p>
-            </li>
-          }
-        </div>
+        )
        }
-
-      <div className="deductions flex-1">
-        {
-          showBoxes && (
-            <div className="btn-container flex items-center gap-4">
-        
-        <button className='reset-btn border p-2 tracking-wider rounded-md bg-[#de2e2e] text-white hover:bg-[#ec4e4e] hover:text-white'
-        onClick={handleReset}
-        >Reset</button>
-        <button className="addDeduction border p-2 tracking-wider rounded-md bg-[#242424] text-white hover:bg-[#0f0f0f] hover:text-white" onClick={handleAddDeductions}>
-          Deduction
-        </button>
-        </div>
-          )
-        }
-        
-       
-
-        {
-          deductions.map(item=>{
-            return <AddDeduction key={item.uniqueId} id={item.uniqueId} cost={item.cost} title={item.title}  onChange={handleChange} deductions={deductions} handleRemove={handleRemove} />
-          })
-        }
-        
-        {
-          deductions.length > 0 && (
-            <button className='addDeduction border p-2 tracking-wider rounded-md bg-blue-600 text-white  mt-4'
-        onClick={handleSubmit}
-        >Submit</button>
-          )
-        }
-        
-      </div>
-
-       </div>
+     
 
       
 
